@@ -1,12 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from typing import Optional
 
 router = APIRouter()
-
-
-@router.get("/health", response_model=str)
-async def health():
-    return "ok"
 
 
 @router.post("/auth/login")
@@ -14,16 +9,17 @@ async def login():
     return "login"
 
 
-@router.post("/tasks")
+@router.post("/tasks", status_code=status.HTTP_201_CREATED)
 async def tasks():
     return "add new task"
 
 
-@router.get("/tasks}", response_model=str)
-async def get_tasks(status: Optional[str] = None):
-    if status:
-        return f"Filter tasks by status: {status}"
-    return "Return all tasks"
+@router.get("/tasks", response_model=str)
+async def get_tasks(task_status: Optional[str] = None):
+    if task_status:
+        return f"filter tasks by status: {task_status}"
+    else:
+        return "return all tasks"
 
 
 @router.patch("/tasks/{task_id}", response_model=str)
