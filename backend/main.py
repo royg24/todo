@@ -5,7 +5,7 @@ import os
 import secrets
 
 load_dotenv()
-users = []
+
 os.environ["JWT_SECRET_KEY"] = secrets.token_urlsafe()
 
 app = FastAPI(title="TODO app", docs_url="/swagger")
