@@ -3,6 +3,7 @@ from typing import Optional
 
 from controllers.login_controller import LoginController
 from controllers.create_task_controller import CreateTaskController
+from controllers.get_tasks_controller import GetTasksController
 
 from models.user import User
 from models.task import Task
@@ -23,12 +24,10 @@ async def create_task(task: Task, token: str = Depends(get_token)):
     return {**new_task.model_dump(), "message": "Task added successfully"}
 
 
-@router.get("/tasks", response_model=str)
-async def get_tasks(task_status: Optional[str] = None):
-    if task_status:
-        return f"filter tasks by status: {task_status}"
-    else:
-        return "return all tasks"
+@router.get("/tasks", response_model=dict)
+async def get_tasks(task_status: Optional[str] = None, token: str = Depends(get_token)):
+    tasks = GetTasksController.get_tasks(token, task_status)
+    return {"tasks": tasks}
 
 
 @router.patch("/tasks/{task_id}", response_model=str)

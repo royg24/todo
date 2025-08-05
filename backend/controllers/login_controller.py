@@ -1,3 +1,5 @@
+import os
+
 from models.user import User, users
 from utils import create_token
 from validations.validations import validate_password, validate_username

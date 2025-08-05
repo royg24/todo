@@ -6,7 +6,7 @@ from models.task import Task
 
 
 class User(BaseModel):
-    uuid: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid4)
     username: str
     password: str
     tasks: List[Task] = Field(default_factory=list)
