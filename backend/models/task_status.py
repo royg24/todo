@@ -6,3 +6,4 @@ class TaskStatus(Enum):
     PENDING = 2
     IN_PROGRESS = 3
     CANCELLED = 4
+    OUTDATED = 5

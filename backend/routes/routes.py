@@ -4,9 +4,13 @@ from typing import Optional
 from controllers.login_controller import LoginController
 from controllers.create_task_controller import CreateTaskController
 from controllers.get_tasks_controller import GetTasksController
+from controllers.udpate_task_controller import UpdateTaskController
 
 from models.user import User
-from models.task import Task
+from models.task_create import TaskCreate
+from models.task_update import TaskUpdate
+
+from uuid import UUID
 from utils import get_token
 
 router = APIRouter()
@@ -19,7 +23,7 @@ async def login(user_details: User):
 
 
 @router.post("/tasks", status_code=status.HTTP_201_CREATED)
-async def create_task(task: Task, token: str = Depends(get_token)):
+async def create_task(task: TaskCreate, token: str = Depends(get_token)):
     new_task = CreateTaskController.create_task(task, token)
     return {**new_task.model_dump(), "message": "Task added successfully"}
 
@@ -30,14 +34,10 @@ async def get_tasks(task_status: Optional[str] = None, token: str = Depends(get_
     return {"tasks": tasks}
 
 
-@router.patch("/tasks/{task_id}", response_model=str)
-async def tasks_update(task_id: str):
-    return f"update status for task {task_id}"
-
-
-@router.get("/tasks/{task_id}", response_model=str)
-async def tasks_get(task_id: str):
-    return f"get task details for task {task_id}"
+@router.patch("/tasks/{task_id}", response_model=dict)
+async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depends(get_token)):
+    updated_task = UpdateTaskController.update_task(updated_task, UUID(task_id), token)
+    return {**updated_task.model_dump(), "message": "Task updated successfully"}
 
 
 @router.delete("/tasks/{task_id}", response_model=str)

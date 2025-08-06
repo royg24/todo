@@ -12,11 +12,10 @@ security = HTTPBearer()
 
 def create_token(user: User, expires_hours=2):
     payload = {
-        "id": str(user.id),  # convert UUID to string
+        "id": str(user.id),
         "exp": datetime.now(timezone.utc) + timedelta(hours=expires_hours)
     }
     return encode(payload, os.getenv("JWT_SECRET_KEY"), algorithm='HS256')
-
 
 
 def decode_token(token: str) -> UUID:
