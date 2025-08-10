@@ -1,6 +1,6 @@
 from models.user import users
 from models.task_create import TaskCreate
-from exceptions_handler import ValidationException, AuthenticationException
+from exceptions_handler import AuthenticationException
 from validations.validations import validate_task_name, validate_due_date
 from utils import decode_token
 
@@ -14,6 +14,7 @@ class CreateTaskController:
 
     @staticmethod
     def create_task(task: TaskCreate, token: str):
+
         CreateTaskController.__validate_task(task)
         task = TaskCreate(**task.model_dump())
 

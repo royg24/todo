@@ -24,7 +24,7 @@ def validate_task_name(task_name: str) -> str:
 
 
 def validate_due_date(due_date: datetime) -> datetime:
-    if due_date <= datetime.now():
+    if not due_date or due_date <= datetime.now():
         raise ValidationException("Due date must be in the future")
 
     return due_date

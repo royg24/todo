@@ -27,11 +27,10 @@ class UpdateTaskController:
         if user is None:
             raise NotFoundException("User not found")
 
-        task_to_update = next((task for task in user.tasks if task.id == task_id), None)
-        if task_to_update is None:
-            raise NotFoundException("Task not found")
+        for i, task in enumerate(user.tasks):
+            if task.id == task_id:
+                for name, value in updated_task.model_dump(exclude_unset=True).items():
+                    setattr(user.tasks[i], name, value)
+                return user.tasks[i]
 
-        for name, value in updated_task.model_dump(exclude_unset=True).items():
-            setattr(task_to_update, name, value)
-
-        return task_to_update
+        raise NotFoundException("Task not found")
