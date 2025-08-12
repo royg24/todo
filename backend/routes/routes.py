@@ -1,5 +1,6 @@
-from fastapi import APIRouter, status, Depends, Query
+from fastapi import APIRouter, status, Depends
 from typing import Optional
+from database import get_session
 
 from controllers.login_controller import LoginController
 from controllers.create_task_controller import CreateTaskController
@@ -8,7 +9,7 @@ from controllers.udpate_task_controller import UpdateTaskController
 from controllers.delete_task_controller import DeleteTaskController
 
 from models.user import User
-from models.task_create import TaskCreate
+from models.task import Task
 from models.task_update import TaskUpdate
 from models.task_status import TaskStatus
 
@@ -19,13 +20,13 @@ router = APIRouter()
 
 
 @router.post("/auth/login", response_model=dict)
-async def login(user_details: User):
-    token = LoginController.login(user_details)
+async def login(user_details: User, session = Depends(get_session)):
+    token = LoginController.login(user_details, session)
     return {"token": token, "message": "Login successful"}
 
 
 @router.post("/tasks", status_code=status.HTTP_201_CREATED, response_model=dict)
-async def create_task(task: TaskCreate, token: str = Depends(get_token)):
+async def create_task(task: Task, token: str = Depends(get_token)):
     new_task = CreateTaskController.create_task(task, token)
     return {**new_task.model_dump(), "message": "Task added successfully"}
 

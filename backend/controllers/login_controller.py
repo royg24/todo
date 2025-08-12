@@ -1,16 +1,17 @@
-import os
+from sqlalchemy.orm import Session
 
 from models.user import User, users
 from utils import create_token
 from validations.validations import validate_password, validate_username
 from exceptions_handler import ValidationException, AuthenticationException
+from database.database import TodoDatabase
 
 
 class LoginController:
 
     @staticmethod
-    def __get_user(user_details: User):
-        user = next((user for user in users if user.username == user_details.username), None)
+    def __get_user(user_details: User, session: Session) -> User:
+        user = TodoDatabase.get_user_by_username(user_details.username, session)
 
         if user:
             if user.password == user_details.password:
@@ -19,7 +20,7 @@ class LoginController:
                 raise AuthenticationException("Username is taken or password is incorrect")
 
         new_user = User(username=user_details.username, password=user_details.password)
-        users.append(new_user)
+        TodoDatabase.add_user(new_user, session)
         return new_user
 
     @staticmethod
@@ -31,7 +32,7 @@ class LoginController:
             raise e
 
     @staticmethod
-    def login(user_details: User):
+    def login(user_details: User, session: Session):
         LoginController.__validate(user_details)
-        user = LoginController.__get_user(user_details)
+        user = LoginController.__get_user(user_details, session)
         return create_token(user)

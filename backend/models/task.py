@@ -6,7 +6,7 @@ from models.task_status import TaskStatus
 from typing import Optional
 
 
-class TaskCreate(BaseModel):
+class Task(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     name: str
     description: Optional[str]

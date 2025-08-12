@@ -1,3 +1,4 @@
+import bcrypt
 from fastapi import Depends
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jwt import decode, encode, ExpiredSignatureError, InvalidTokenError
@@ -31,3 +32,9 @@ def decode_token(token: str) -> UUID:
 
 def get_token(credentials: HTTPAuthorizationCredentials = Depends(security)) -> str:
     return credentials.credentials
+
+
+def hash_password(password: str) -> str:
+    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    return hashed.decode('utf-8')
+
