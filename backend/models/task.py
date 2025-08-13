@@ -7,7 +7,7 @@ from typing import Optional
 
 
 class Task(BaseModel):
-    id: UUID = Field(default_factory=uuid4)
+    task_id: UUID = Field(default_factory=uuid4)
     name: str
     description: Optional[str]
     due_date: datetime

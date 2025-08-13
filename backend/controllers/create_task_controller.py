@@ -1,8 +1,11 @@
+from sqlalchemy.orm import Session
+
 from models.user import users
 from models.task import Task
 from exceptions_handler import AuthenticationException
 from validations.validations import validate_task_name, validate_due_date
 from utils import decode_token
+from database.database import TodoDatabase
 
 
 class CreateTaskController:
@@ -13,16 +16,14 @@ class CreateTaskController:
         validate_due_date(task.due_date)
 
     @staticmethod
-    def create_task(task: Task, token: str):
+    def create_task(task_details: Task, token: str, session: Session):
 
-        CreateTaskController.__validate_task(task)
-        task = Task(**task.model_dump())
+        CreateTaskController.__validate_task(task_details)
+        new_task = Task(**task_details.model_dump())
 
         user_id = decode_token(token)
-        user = next((user for user in users if user.id == user_id), None)
 
-        if not user:
+        if not user_id:
             raise AuthenticationException("Invalid token")
 
-        user.tasks.append(task)
-        return task
+        return TodoDatabase.add_task(new_task, user_id, session)

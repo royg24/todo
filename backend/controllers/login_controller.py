@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models.user import User
-from utils import create_token, hash_password, verify_password
+from utils import create_token, verify_password
 from validations.validations import validate_password, validate_username
 from exceptions_handler import ValidationException, AuthenticationException
 from database.database import TodoDatabase
@@ -10,7 +10,7 @@ from database.database import TodoDatabase
 class LoginController:
 
     @staticmethod
-    def __get_user(user_details: User, session: Session) -> User:
+    def __get_user(user_details: User, session: Session):
         user = TodoDatabase.get_user_by_username(user_details.username, session)
 
         if user:

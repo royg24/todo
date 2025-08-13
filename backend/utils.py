@@ -5,7 +5,6 @@ from jwt import decode, encode, ExpiredSignatureError, InvalidTokenError
 from uuid import UUID
 import os
 from datetime import datetime, timezone, timedelta
-from models.user import User
 from exceptions_handler import AuthenticationException
 
 security = HTTPBearer()
@@ -41,6 +40,5 @@ def hash_password(password: str) -> str:
 
 def verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
-
 
 
