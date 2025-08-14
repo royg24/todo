@@ -1,4 +1,6 @@
 from sqlalchemy.orm import Session
+
+from models.task_status import TaskStatus
 from models.user import User as UserModel
 from models.task import Task as TaskModel
 from database.user import User as UserSchema
@@ -28,12 +30,17 @@ class TodoDatabase:
         return task
 
     @staticmethod
+    def get_tasks(user_id: UUID, session: Session):
+        tasks = session.query(TaskSchema).filter(TaskSchema.user_id == user_id).all()
+        return {"tasks": [TaskModel.model_validate(task, from_attributes=True).model_dump() for task in tasks]}
+
+    @staticmethod
     def get_user_by_id(user_id: UUID, session: Session) -> UserSchema | None:
         return session.query(UserSchema).filter(UserSchema.user_id == user_id).first()
 
     @staticmethod
     def get_user_by_username(username: str, session: Session) -> UserSchema | None:
-        return session.query(UserSchema).filter(UserSchema.username == username).first()  # type: ignore
+        return session.query(UserSchema).filter(UserSchema.username == username).first()
 
     @staticmethod
     def task_schema_to_model(task: TaskSchema) -> TaskModel:
@@ -42,7 +49,7 @@ class TodoDatabase:
             name=task.name,
             description=task.description,
             due_date=task.due_date,
-            status=task.status
+            status=TaskStatus(task.status)
         )
 
     @staticmethod
@@ -61,5 +68,5 @@ class TodoDatabase:
             name=task_details.name,
             description=task_details.description or None,
             due_date=task_details.due_date,
-            status=task_details.status
+            status=str(task_details.status.value)
         )

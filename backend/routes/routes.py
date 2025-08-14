@@ -33,9 +33,8 @@ async def create_task(task: Task, token: str = Depends(get_token), session=Depen
 
 
 @router.get("/tasks", response_model=dict)
-async def get_tasks(task_status: Optional[TaskStatus] = None, token: str = Depends(get_token)):
-    tasks = GetTasksController.get_tasks(token, task_status)
-    return {"tasks": tasks}
+async def get_tasks(token: str = Depends(get_token), session=Depends(get_session)):
+    return GetTasksController.get_tasks(token, session)
 
 
 @router.patch("/tasks/{task_id}", response_model=dict)

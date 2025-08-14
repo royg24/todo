@@ -1,5 +1,6 @@
 import os
 import sys
+from typing import Any, Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
@@ -31,7 +32,7 @@ engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def get_session() -> Session:
+def get_session() -> Generator[Session, Any, None]:
     session = SessionLocal()
     try:
         yield session

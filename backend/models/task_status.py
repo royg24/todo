@@ -1,9 +1,9 @@
-from enum import IntEnum
+from enum import Enum
 
 
-class TaskStatus(IntEnum):
-    COMPLETED = 1
-    PENDING = 2
-    IN_PROGRESS = 3
-    CANCELLED = 4
-    OUTDATED = 5
+class TaskStatus(Enum):
+    COMPLETED = "COMPLETED"
+    PENDING = "PENDING"
+    IN_PROGRESS = "IN_PROGRESS"
+    CANCELLED = "CANCELLED"
+    OUTDATED = "OUTDATED"

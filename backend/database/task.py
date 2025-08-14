@@ -12,3 +12,7 @@ class Task(Base):
     description = Column(String, nullable=True)
     due_date = Column(DateTime, nullable=False)
     status = Column(String, nullable=False)
+
+    model_config = {
+        "from_attributes": True
+    }
