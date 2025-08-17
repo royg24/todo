@@ -38,8 +38,9 @@ async def get_tasks(token: str = Depends(get_token), session=Depends(get_session
 
 
 @router.patch("/tasks/{task_id}", response_model=dict)
-async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depends(get_token)):
-    updated_task = UpdateTaskController.update_task(updated_task, UUID(task_id), token)
+async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depends(get_token), session=Depends(get_session)):
+    updated_task = UpdateTaskController.update_task(updated_task, UUID(task_id), token, session)
+    updated_task = TodoDatabase.task_schema_to_model(updated_task)
     return {**updated_task.model_dump(), "message": "Task updated successfully"}
 
 

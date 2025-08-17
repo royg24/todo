@@ -1,8 +1,12 @@
+from enum import Enum
+
 from sqlalchemy.orm import Session
 
 from models.task_status import TaskStatus
 from models.user import User as UserModel
 from models.task import Task as TaskModel
+from models.task_update import TaskUpdate
+
 from database.user import User as UserSchema
 from database.task import Task as TaskSchema
 from utils import hash_password
@@ -35,12 +39,26 @@ class TodoDatabase:
         return {"tasks": [TaskModel.model_validate(task, from_attributes=True).model_dump() for task in tasks]}
 
     @staticmethod
+    def update_task(task: TaskSchema, updated_task: TaskUpdate, session: Session):
+        for name, value in updated_task.model_dump(exclude_unset=True).items():
+            setattr(task, name, TodoDatabase.__normalize_value(value))
+
+        session.commit()
+        session.refresh(task)
+
+        return task
+
+    @staticmethod
     def get_user_by_id(user_id: UUID, session: Session) -> UserSchema | None:
         return session.query(UserSchema).filter(UserSchema.user_id == user_id).first()
 
     @staticmethod
     def get_user_by_username(username: str, session: Session) -> UserSchema | None:
         return session.query(UserSchema).filter(UserSchema.username == username).first()
+
+    @staticmethod
+    def get_task_by_id(task_id: UUID, session: Session) -> TaskSchema | None:
+        return session.query(TaskSchema).filter(TaskSchema.task_id == task_id).first()
 
     @staticmethod
     def task_schema_to_model(task: TaskSchema) -> TaskModel:
@@ -70,3 +88,7 @@ class TodoDatabase:
             due_date=task_details.due_date,
             status=str(task_details.status.value)
         )
+
+    @staticmethod
+    def __normalize_value(value):
+        return value.value if isinstance(value, Enum) else value
