@@ -11,7 +11,7 @@ class GetTasksController:
     def get_tasks(token: str, session: Session):
         user_id = decode_token(token)
 
-        if not user_id:
+        if TodoDatabase.get_user_by_id(user_id, session) is None:
             raise NotFoundException("User not found")
 
         return TodoDatabase.get_tasks(user_id, session)

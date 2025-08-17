@@ -14,3 +14,9 @@ class AuthenticationException(HTTPException):
 class NotFoundException(HTTPException):
     def __init__(self, message: str):
         super().__init__(status_code=status.HTTP_404_NOT_FOUND, detail=message)
+
+
+class DatabaseException(HTTPException):
+    def __init__(self, response_status: int, message: str):
+        super().__init__(status_code=response_status, detail=message)
+

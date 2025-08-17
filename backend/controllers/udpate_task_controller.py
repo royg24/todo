@@ -22,11 +22,12 @@ class UpdateTaskController:
     def update_task(updated_task: TaskUpdate, task_id: UUID, token: str, session: Session):
         UpdateTaskController.__validate_task(updated_task)
 
-        if decode_token(token) is None:
+        user_id = decode_token(token)
+        if TodoDatabase.get_user_by_id(user_id, session) is None:
             raise AuthenticationException("Unauthorized user")
 
         task = TodoDatabase.get_task_by_id(task_id, session)
         if task is None:
             raise NotFoundException("Task not found")
 
-        return TodoDatabase.update_task(task, updated_task, session)
+        return TodoDatabase.db_update_task(task, updated_task, session)

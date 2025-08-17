@@ -1,5 +1,4 @@
 from fastapi import APIRouter, status, Depends
-from typing import Optional
 from database import get_session
 from database.database import TodoDatabase
 
@@ -12,7 +11,6 @@ from controllers.delete_task_controller import DeleteTaskController
 from models.user import User
 from models.task import Task
 from models.task_update import TaskUpdate
-from models.task_status import TaskStatus
 
 from uuid import UUID
 from utils import get_token
@@ -45,5 +43,5 @@ async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depe
 
 
 @router.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def tasks_delete(task_id: str, token: str = Depends(get_token)):
-    DeleteTaskController.delete_task(UUID(task_id), token)
+async def tasks_delete(task_id: str, token: str = Depends(get_token), session=Depends(get_session)):
+    DeleteTaskController.delete_task(UUID(task_id), token, session)

@@ -1,7 +1,10 @@
 from enum import Enum
 
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 from sqlalchemy.orm import Session
+from fastapi import status
 
+from exceptions_handler import DatabaseException
 from models.task_status import TaskStatus
 from models.user import User as UserModel
 from models.task import Task as TaskModel
@@ -20,7 +23,7 @@ class TodoDatabase:
         user = TodoDatabase.__create_user_for_schema(user_details)
 
         session.add(user)
-        session.commit()
+        TodoDatabase.__commit_session(session, "Cannot create user due to a conflict with existing data")
         session.refresh(user)
         return user
 
@@ -29,24 +32,32 @@ class TodoDatabase:
         task = TodoDatabase.__create_task_for_schema(task_details, user_id)
 
         session.add(task)
-        session.commit()
+        TodoDatabase.__commit_session(session, "Cannot create task due to a conflict with existing data")
         session.refresh(task)
         return task
 
     @staticmethod
-    def get_tasks(user_id: UUID, session: Session):
+    def get_tasks(user_id: UUID, session: Session) -> dict:
         tasks = session.query(TaskSchema).filter(TaskSchema.user_id == user_id).all()
         return {"tasks": [TaskModel.model_validate(task, from_attributes=True).model_dump() for task in tasks]}
 
     @staticmethod
-    def update_task(task: TaskSchema, updated_task: TaskUpdate, session: Session):
+    def db_update_task(task: TaskSchema, updated_task: TaskUpdate, session: Session) -> TaskSchema:
         for name, value in updated_task.model_dump(exclude_unset=True).items():
             setattr(task, name, TodoDatabase.__normalize_value(value))
 
-        session.commit()
+        TodoDatabase.__commit_session(session, "Cannot update task due to a conflict with existing data or constraints")
         session.refresh(task)
 
         return task
+
+    @staticmethod
+    def db_delete_task(task: TaskSchema, session: Session) -> bool:
+
+        session.delete(session.merge(task))
+        TodoDatabase.__commit_session(session, "Cannot delete task because it is referenced by other records")
+
+        return True
 
     @staticmethod
     def get_user_by_id(user_id: UUID, session: Session) -> UserSchema | None:
@@ -88,6 +99,17 @@ class TodoDatabase:
             due_date=task_details.due_date,
             status=str(task_details.status.value)
         )
+
+    @staticmethod
+    def __commit_session(session: Session, integrity_message: str):
+        try:
+            session.commit()
+        except IntegrityError as e:
+            session.rollback()
+            raise DatabaseException(status.HTTP_409_CONFLICT, integrity_message)
+        except SQLAlchemyError as e:
+            session.rollback()
+            raise DatabaseException(status.HTTP_500_INTERNAL_SERVER_ERROR, "An unexpected database error occurred")
 
     @staticmethod
     def __normalize_value(value):
