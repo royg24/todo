@@ -42,6 +42,19 @@ class TodoDatabase:
         return {"tasks": [TaskModel.model_validate(task, from_attributes=True).model_dump() for task in tasks]}
 
     @staticmethod
+    def db_update_username(new_username: str, user_to_update: UserSchema, session: Session) -> bool:
+        user = TodoDatabase.get_user_by_username(new_username, session)
+        if user is not None:
+            raise DatabaseException(status.HTTP_409_CONFLICT, f"{new_username} already exists")
+
+        setattr(user_to_update, "username", new_username)
+
+        TodoDatabase.__commit_session(session, "Cannot update username due to a conflict with existing data")
+        session.refresh(user_to_update)
+
+        return True
+
+    @staticmethod
     def db_update_task(task: TaskSchema, updated_task: TaskUpdate, session: Session) -> TaskSchema:
         for name, value in updated_task.model_dump(exclude_unset=True).items():
             setattr(task, name, TodoDatabase.__normalize_value(value))
@@ -54,8 +67,16 @@ class TodoDatabase:
     @staticmethod
     def db_delete_task(task: TaskSchema, session: Session) -> bool:
 
-        session.delete(session.merge(task))
+        session.delete(task)
         TodoDatabase.__commit_session(session, "Cannot delete task because it is referenced by other records")
+
+        return True
+
+    @staticmethod
+    def db_delete_user(user: UserSchema, session: Session) -> bool:
+
+        session.delete(user)
+        TodoDatabase.__commit_session(session, "Cannot delete user due to a conflict with existing data")
 
         return True
 

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from utils import decode_token
-from exceptions_handler import NotFoundException
+from exceptions_handler import AuthenticationException
 from database.database import TodoDatabase
 
 
@@ -12,6 +12,6 @@ class GetTasksController:
         user_id = decode_token(token)
 
         if TodoDatabase.get_user_by_id(user_id, session) is None:
-            raise NotFoundException("User not found")
+            raise AuthenticationException("Unauthorized user")
 
         return TodoDatabase.get_tasks(user_id, session)

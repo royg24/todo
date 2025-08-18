@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 
-from models.user import users
 from models.task_update import TaskUpdate
 from database.database import TodoDatabase
 from exceptions_handler import AuthenticationException, NotFoundException

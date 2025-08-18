@@ -1,4 +1,7 @@
 from fastapi import APIRouter, status, Depends
+
+from controllers.delete_user_controller import DeleteUserController
+from controllers.update_username_controller import UpdateUsernameController
 from database import get_session
 from database.database import TodoDatabase
 
@@ -35,6 +38,11 @@ async def get_tasks(token: str = Depends(get_token), session=Depends(get_session
     return GetTasksController.get_tasks(token, session)
 
 
+@router.patch("/users/username", status_code=status.HTTP_204_NO_CONTENT)
+async def username_update(new_username: str, token=Depends(get_token), session=Depends(get_session)):
+    UpdateUsernameController.update_username(new_username, token, session)
+
+
 @router.patch("/tasks/{task_id}", response_model=dict)
 async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depends(get_token), session=Depends(get_session)):
     updated_task = UpdateTaskController.update_task(updated_task, UUID(task_id), token, session)
@@ -45,3 +53,8 @@ async def tasks_update(updated_task: TaskUpdate, task_id: str, token: str = Depe
 @router.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def tasks_delete(task_id: str, token: str = Depends(get_token), session=Depends(get_session)):
     DeleteTaskController.delete_task(UUID(task_id), token, session)
+
+
+@router.delete("/users", status_code=status.HTTP_204_NO_CONTENT)
+async def users_delete(token: str = Depends(get_token), session=Depends(get_session)):
+    DeleteUserController.delete_user(token, session)
