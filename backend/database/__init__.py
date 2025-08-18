@@ -15,15 +15,15 @@ load_dotenv()
 
 IS_TESTING = "pytest" in sys.modules or any("pytest" in arg for arg in sys.argv)
 
-db_user = "tests_user" if IS_TESTING else "user"
-db_password = "tests_password" if IS_TESTING else "password"
-db_host = "tests_host" if IS_TESTING else "host"
+db_user = "TESTS_DB_USER" if IS_TESTING else "DB_USER"
+db_password = "TESTS_DB_PASSWORD" if IS_TESTING else "DB_PASSWORD"
+db_host = "TESTS_DB_HOST" if IS_TESTING else "DB_HOST"
 
 USER = os.getenv(db_user)
 PASSWORD = os.getenv(db_password)
 HOST = os.getenv(db_host)
-PORT = os.getenv("port")
-DBNAME = os.getenv("dbname")
+PORT = os.getenv("DB_PORT")
+DBNAME = os.getenv("DB_NAME")
 
 DATABASE_URL = f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
 

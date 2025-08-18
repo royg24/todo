@@ -19,4 +19,3 @@ class NotFoundException(HTTPException):
 class DatabaseException(HTTPException):
     def __init__(self, response_status: int, message: str):
         super().__init__(status_code=response_status, detail=message)
-

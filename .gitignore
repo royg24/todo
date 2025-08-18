@@ -7,7 +7,6 @@ __pycache__/
 dist/
 build/
 .env
-requirements.txt
 .venv/
 venv/
 *.sqlite3
@@ -28,5 +27,3 @@ Thumbs.db
 # VS Code
 .vscode/
 
-# Test directory to ignore
-backend/tests/

@@ -9,11 +9,11 @@ def validate_username(username: str) -> str:
     return username
 
 
-def validate_password(password: str) -> str:
-    if not _validate_length(password, 5, 30):
+def validate_password(DB_PASSWORD: str) -> str:
+    if not _validate_length(DB_PASSWORD, 5, 30):
         raise ValidationException("Password must be 5-30 characters long")
 
-    return password
+    return DB_PASSWORD
 
 
 def validate_task_name(task_name: str) -> str:

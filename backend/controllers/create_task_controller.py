@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 
-from models.user import users
 from models.task import Task
 from exceptions_handler import AuthenticationException
 from validations.validations import validate_task_name, validate_due_date

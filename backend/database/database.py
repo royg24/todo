@@ -125,10 +125,10 @@ class TodoDatabase:
     def __commit_session(session: Session, integrity_message: str):
         try:
             session.commit()
-        except IntegrityError as e:
+        except IntegrityError:
             session.rollback()
             raise DatabaseException(status.HTTP_409_CONFLICT, integrity_message)
-        except SQLAlchemyError as e:
+        except SQLAlchemyError:
             session.rollback()
             raise DatabaseException(status.HTTP_500_INTERNAL_SERVER_ERROR, "An unexpected database error occurred")
 
