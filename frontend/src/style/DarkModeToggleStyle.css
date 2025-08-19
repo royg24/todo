@@ -1,0 +1,43 @@
+/* TaskBoardStyle.css */
+
+/* Switch container */
+.dark-mode-toggle {
+	width: 3.75rem;
+	height: 1.875rem;
+	border-radius: 9999px;
+	background-color: #ccc;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding: 0.125rem;
+	transition: background-color 0.3s;
+	margin-bottom: 1rem;
+	position: absolute;
+	top: 2rem;
+	right: 3rem;
+}
+
+/* Change background when checked */
+.dark-mode-toggle[data-state="checked"] {
+	background-color: #333;
+}
+
+/* Thumb */
+.toggle-circle {
+	width: 1.625rem;
+	height: 1.625rem;
+	border-radius: 50%;
+	background-color: black;
+	transition: transform 0.3s, background-color 0.3s;
+	transform: translateX(0);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Move thumb and change its color when switch is checked */
+.dark-mode-toggle[data-state="checked"] .toggle-circle {
+	transform: translateX(1.875rem);
+	background-color: #f5f5f5;
+}

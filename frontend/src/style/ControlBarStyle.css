@@ -1,0 +1,39 @@
+.control-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	color: white;
+	gap: 12rem;
+}
+
+.control-bar-filters {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 2rem;
+}
+
+.control-bar-select {
+	padding: 0.25rem 0.75rem;
+	border-radius: 0.25rem;
+	background-color: #374151;
+	color: white;
+}
+
+.control-bar-select:hover {
+    background-color: #4b5563;
+    cursor: pointer;
+}
+
+.control-bar-button {
+	padding: 0.5rem 1rem;
+	border-radius: 0.25rem;
+	background-color: #2563eb;
+	color: white;
+	transition: background-color 0.2s;
+}
+
+.control-bar-button:hover {
+	background-color: #5b78cc;
+}
