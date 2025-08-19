@@ -6,4 +6,4 @@ class TaskStatus(Enum):
     PENDING = "PENDING"
     IN_PROGRESS = "IN_PROGRESS"
     CANCELLED = "CANCELLED"
-    OUTDATED = "OUTDATED"
+    OUTDATED = "OUTDATED"  # Maybe remove
