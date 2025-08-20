@@ -1,0 +1,59 @@
+
+.calendar-popover {
+  width: 16rem;
+  padding: 0.5rem;
+}
+
+.compact-calendar .rdp-weekday {
+  font-size: 0.7rem;
+  padding: 0.25rem 0;
+}
+
+.compact-calendar .rdp-day {
+  font-size: 0.7rem;
+  padding: 0.25rem;
+  min-width: 1.5rem;
+  min-height: 1.5rem;
+}
+
+.compact-calendar .rdp-nav-button {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.compact-calendar .rdp-caption {
+  font-size: 0.75rem;
+  padding: 0.25rem 0;
+}
+
+.compact-calendar .day-button-themed {
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0.25rem;
+	font-size: 0.7rem;
+}
+
+.compact-calendar .rdp-nav-button {
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0.25rem;
+}
+
+.compact-calendar-caption-light {
+    color: black;
+}
+
+.compact-calendar-caption-dark {
+    color: white;
+}
+
+.compact-calender-today-light {
+    background-color: #e0f7fa;
+    color: black;
+}
+
+.compact-calender-today-dark {
+    background-color: #004d40;
+    color: white;
+}
+

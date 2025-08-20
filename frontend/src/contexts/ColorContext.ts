@@ -1,27 +1,50 @@
 import { createContext, type Dispatch, type SetStateAction } from "react";
 
-export const DarkModeContext = createContext<{
-  darkMode: boolean;
-  setDarkMode: Dispatch<SetStateAction<boolean>>;
-  toggleDarkMode: () => void;
-}>({
-  darkMode: false,
-  setDarkMode: () => {},
-  toggleDarkMode: () => {},
-});
+export interface ThemeContextType {
+    darkMode: boolean;
+    setDarkMode: Dispatch<SetStateAction<boolean>>;
+    toggleDarkMode: () => void;
 
-export const TextColorContext = createContext<{
-  textColor: string;
-  setTextColor: Dispatch<SetStateAction<string>>;
-}>({
-  textColor: "black",
-  setTextColor: () => {},
-});
+    textColor: string;
+    setTextColor: Dispatch<SetStateAction<string>>;
 
-export const BackgroundColorContext = createContext<{
-  bgColor: string;
-  setBgColor: Dispatch<SetStateAction<string>>;
-}>({
-  bgColor: "white",
-  setBgColor: () => {},
+    bgColor: string;
+    setBgColor: Dispatch<SetStateAction<string>>;
+
+    selectColor: string;
+    setSelectColor: Dispatch<SetStateAction<string>>;
+
+    hoverSelectColor: string;
+    setHoverSelectColor: Dispatch<SetStateAction<string>>;
+
+    buttonColor?: string;
+    setButtonColor?: Dispatch<SetStateAction<string>>;
+
+    hoverButtonColor?: string;
+    setHoverButtonColor?: Dispatch<SetStateAction<string>>;
+}
+
+export const ThemeContext = createContext<ThemeContextType>({
+    darkMode: false,
+    setDarkMode: () => {},
+    toggleDarkMode: () => {},
+
+    textColor: "black",
+    setTextColor: () => {},
+
+    bgColor: "white",
+    setBgColor: () => {},
+
+    selectColor: "#f5f5f5",
+    setSelectColor: () => {},
+
+    hoverSelectColor: "#e5e5e5",
+    setHoverSelectColor: () => {},
+
+    buttonColor: "#3b82f6",
+    setButtonColor: () => {},
+
+    hoverButtonColor: "#2563eb",
+    setHoverButtonColor: () => {},
+
 });

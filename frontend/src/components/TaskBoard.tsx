@@ -1,12 +1,12 @@
 import {useState, useContext} from "react";
 import "../style/TaskBoardStyle.css"
-import {BackgroundColorContext, TextColorContext} from "@/contexts/ColorContext.ts";
+import { ThemeContext } from "@/contexts/ColorContext.ts";
 import ControlBar from "@/components/ControlBar.tsx";
 
 export default function TaskBoard() {
     const [username] = useState<string>("Guest");
-    const { textColor } = useContext(TextColorContext);
-    const { bgColor } = useContext(BackgroundColorContext);
+    const { textColor } = useContext(ThemeContext);
+    const { bgColor } = useContext(ThemeContext);
 
 
     return (
