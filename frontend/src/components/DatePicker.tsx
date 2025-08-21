@@ -1,9 +1,5 @@
 "use client"
 
-//TODO
-// 1. Make month and year selector instead of label
-// 2. Make unchoose button
-
 import * as React from "react"
 import { useContext } from "react"
 import { ChevronDownIcon } from "lucide-react"
@@ -14,13 +10,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ThemeContext } from "@/contexts/ColorContext.ts"
 import "@/style/DatePicker.css"
 
-export default function Calendar22() {
-	const { textColor, selectColor, hoverSelectColor, buttonColor, hoverButtonColor } = useContext(ThemeContext)
+export default function DatePicker() {
+	const { textColor, selectColor, buttonColor, hoverButtonColor } = useContext(ThemeContext)
     const { darkMode } = useContext(ThemeContext);
     const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(undefined);
 
 	const [open, setOpen] = React.useState(false);
-	const [isHovered, setIsHovered] = React.useState(false);
 
     const labelClass = darkMode
       ? "compact-calendar-caption-dark"
@@ -41,12 +36,8 @@ export default function Calendar22() {
 						className="w-40 justify-between font-normal text-sm px-3 py-1.5"
 						style={{
 							color: textColor ?? "white",
-							backgroundColor: isHovered
-								? hoverSelectColor ?? "#3b82f6"
-								: selectColor ?? "#f5f5f5",
+							backgroundColor: selectColor ?? "#f5f5f5",
 						}}
-						onMouseEnter={() => setIsHovered(true)}
-						onMouseLeave={() => setIsHovered(false)}
 					>
 						{selectedDate ?`
 						${String(selectedDate.getDate()).padStart(2, "0")}/${String(selectedDate.getMonth() + 1)
@@ -69,20 +60,24 @@ export default function Calendar22() {
 							setSelectedDate(d)
 							setOpen(false)
 						}}
-                        modifiers={{ today: new Date() }}
                         modifiersClassNames={{
                             today: todayClass,
                         }}
 						components={{
 							DayButton: ({ className, day, modifiers, ...props }) => {
-                              const changeColor =  modifiers.today;
+                              const dayDate = day.date;
+
+                              const isSelected = selectedDate &&
+                                    dayDate.getFullYear() === selectedDate.getFullYear() &&
+                                    dayDate.getMonth() === selectedDate.getMonth() &&
+                                    dayDate.getDate() === selectedDate.getDate();
 
                               return (
                                 <button
                                   {...props}
                                   className={`day-button-themed ${className}`}
                                   style={{
-                                    backgroundColor: changeColor ? buttonColor
+                                    backgroundColor: isSelected ? buttonColor
                                       : selectColor ?? "#2563eb",
                                     color: textColor ?? "white",
                                   }}
@@ -92,7 +87,7 @@ export default function Calendar22() {
                                   }
                                   onMouseLeave={(e) =>
                                     (e.currentTarget.style.backgroundColor =
-                                      changeColor ? buttonColor ?? "#2563eb"
+                                      isSelected ? buttonColor ?? "#2563eb"
                                         : selectColor ?? "#2563eb")
                                   }
                                 />

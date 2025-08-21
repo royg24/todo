@@ -23,6 +23,7 @@
 	padding: 0.25rem 0.75rem;
 	border-radius: 0.25rem;
     border-color: black;
+    width: 10rem;
 }
 
 .control-bar-select::placeholder {
@@ -53,5 +54,10 @@
 
 .control-bar-button:hover {
 	background-color: #5b78cc;
+}
+
+.toggle-container {
+    margin-top: 1rem;
+    width: 0.05%;
 }
 
