@@ -14,11 +14,11 @@ export default function AppProvider({ children }: { children: ReactNode }) {
         const newMode = !darkMode;
         setDarkMode(newMode);
         setTextColor(newMode ? "white" : "black");
-        setBgColor(newMode ? "#282c34" : "#d9d5d5");
-        setSelectColor(newMode ? "#4b5563" : "#f5f5f5");
+        setBgColor(newMode ? "#282c34" : "#d9d2d2");
+        setSelectColor(newMode ? "#4b5563" : "#ddd9d9");
         setHoverSelectColor(newMode ? "#6b7280" : "#e5e5e5");
-        setButtonColor(newMode ? "#0c52eb" : "#3b82f6");
-        setHoverButtonColor(newMode ? "#679ef8" : "#aec8ff");
+        setButtonColor(newMode ? "#0c52eb" : "#282c34");
+        setHoverButtonColor(newMode ? "#679ef8" :"#4c5057");
   };
 
   return (

@@ -1,10 +1,11 @@
 import {useContext, useState} from "react";
 import { ThemeContext } from "@/contexts/ColorContext.ts";
+import { itemsStyle, inputStyle } from "@/components/Utils.ts";
 import "../style/ControlBarStyle.css";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import {Toggle} from "@/components/ui/toggle.tsx";
+import { Toggle } from "@/components/ui/toggle.tsx";
+import TaskDialog from "@/components/TaskDialog.tsx";
 import DatePicker from "@/components/DatePicker.tsx";
 import {
   Select,
@@ -18,21 +19,11 @@ export default function ControlBar() {
     const { textColor } = useContext(ThemeContext);
     const { selectColor } = useContext(ThemeContext);
     const { hoverSelectColor } = useContext(ThemeContext);
-    const { buttonColor } = useContext(ThemeContext);
-    const { hoverButtonColor } = useContext(ThemeContext);
-    const [fontSize] = useState("0.8rem");
-    const [isButtonHovered, setIsButtonHovered] = useState(false);
     const [isToggleHovered, setIsToggleHovered] = useState(false);
     const [isSearchHovered, setIsSearchHovered] = useState(false);
     const [sortValue, setSortValue] = useState("name");
     const [statusValue, setStatusValue] = useState("all");
     const [direction, setDirection] = useState(false);
-
-    const itemsStyle = {
-        color: textColor,
-        backgroundColor: selectColor,
-        fontSize: fontSize,
-    };
 
     const onToggle = () => setDirection(prev => !prev);
 
@@ -58,10 +49,10 @@ export default function ControlBar() {
             <div className="items-container">
                 <Label htmlFor="sort" style={{ color: textColor }}>Sort By:</Label>
                 <Select value={sortValue} onValueChange={setSortValue}>
-                <SelectTrigger className="control-bar-select" style={itemsStyle}>
+                <SelectTrigger className="control-bar-select" style={itemsStyle()}>
                     <SelectValue />
                 </SelectTrigger>
-                <SelectContent style={itemsStyle}>
+                <SelectContent style={itemsStyle()}>
                     <ControlSelectItem value="date">Date</ControlSelectItem>
                     <ControlSelectItem value="name">Name</ControlSelectItem>
                     <ControlSelectItem value="created-at">Created at</ControlSelectItem>
@@ -72,10 +63,10 @@ export default function ControlBar() {
             <div className="items-container">
                 <Label htmlFor="status" style={{ color: textColor }}>Status:</Label>
                 <Select value={statusValue} onValueChange={setStatusValue}>
-                <SelectTrigger className="control-bar-select" style={itemsStyle}>
+                <SelectTrigger className="control-bar-select" style={itemsStyle()}>
                     <SelectValue />
                 </SelectTrigger>
-                <SelectContent style={itemsStyle}>
+                <SelectContent style={itemsStyle()}>
                     <ControlSelectItem value="all">All</ControlSelectItem>
                     <ControlSelectItem value="completed">Completed</ControlSelectItem>
                     <ControlSelectItem value="pending">Pending</ControlSelectItem>
@@ -90,11 +81,7 @@ export default function ControlBar() {
                 <Input
                     className="control-bar-select"
                     type="text" placeholder="search"
-                    style={{
-                        ...itemsStyle,
-                        borderColor: isSearchHovered ? "#3c6edb" : "transparent",
-                        transition: "border-color 0.3s ease, transform 0.2s ease",
-                    }}
+                    style={inputStyle(itemsStyle() ,isSearchHovered)}
                     onMouseEnter={() => setIsSearchHovered(true)}
                     onMouseLeave={() => setIsSearchHovered(false)}
                 />
@@ -107,14 +94,10 @@ export default function ControlBar() {
         </div>
 
         <div>
-            <Button
-                className="control-bar-button"
-                style={{color: textColor, backgroundColor: isButtonHovered ? hoverButtonColor : buttonColor}}
-                onMouseEnter={() => setIsButtonHovered(true)}
-                onMouseLeave={() => setIsButtonHovered(false)}
-            >
-                Add Task
-            </Button>
+            <TaskDialog
+                buttonText="Add Task"
+                header="Create New Task"
+            />
         </div>
         </div>
     )
