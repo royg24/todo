@@ -25,10 +25,11 @@ export function inputStyle(
 }
 
 export const TaskStatus = {
-  COMPLETED: "completed",
-  PENDING: "pending",
-  IN_PROGRESS: "in-progress",
-  CANCELLED: "cancelled",
+  COMPLETED: { value: "completed", color: "rgb(26,151,54)" },
+  PENDING: { value: "pending", color: "orange" },
+  IN_PROGRESS: { value: "in-progress", color: "rgb(99,139,225)" },
+  CANCELLED: { value: "cancelled", color: "red" },
 } as const;
+
 
 export type TaskStatusType = typeof TaskStatus[keyof typeof TaskStatus];

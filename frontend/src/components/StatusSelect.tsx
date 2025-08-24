@@ -13,7 +13,7 @@ export default function StatusSelect({isAllIncluded = true, value = TaskStatus.P
 
     useEffect(() => {
         if (value) {
-            setStatusValue(value)
+            setStatusValue(value.value)
         }
     })
 
@@ -24,10 +24,10 @@ export default function StatusSelect({isAllIncluded = true, value = TaskStatus.P
             </SelectTrigger>
             <SelectContent style={itemsStyle()}>
                 {isAllIncluded ? <ControlSelectItem value="all">All</ControlSelectItem> : null}
-                <ControlSelectItem value={TaskStatus.COMPLETED}>Completed</ControlSelectItem>
-                <ControlSelectItem value={TaskStatus.PENDING}>Pending</ControlSelectItem>
-                <ControlSelectItem value={TaskStatus.IN_PROGRESS}>In Progress</ControlSelectItem>
-                <ControlSelectItem value={TaskStatus.CANCELLED}>Cancelled</ControlSelectItem>
+                <ControlSelectItem value={TaskStatus.COMPLETED.value}>Completed</ControlSelectItem>
+                <ControlSelectItem value={TaskStatus.PENDING.value}>Pending</ControlSelectItem>
+                <ControlSelectItem value={TaskStatus.IN_PROGRESS.value}>In Progress</ControlSelectItem>
+                <ControlSelectItem value={TaskStatus.CANCELLED.value}>Cancelled</ControlSelectItem>
             </SelectContent>
         </Select>
     )

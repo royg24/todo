@@ -24,6 +24,23 @@ export default function TaskBoard() {
                         status={TaskStatus.CANCELLED}
                         dueDate={new Date("2027-10-01")}
                     />
+                    <TaskCard
+                        name="Finish Project"
+                        description="Complete the final report and presentation for the project."
+                        status={TaskStatus.IN_PROGRESS}
+                        dueDate={new Date("2027-09-15")}
+                    />
+                    <TaskCard
+                        name="Book Flight"
+                        description="Book a flight to New York for the business trip."
+                        status={TaskStatus.COMPLETED}
+                        dueDate={new Date("2027-08-20")}
+                    />
+                    <TaskCard
+                        name="Rent a car"
+                        description="Rent a car for a 3 people 5 days trup"
+                        status={TaskStatus.PENDING}
+                        dueDate={new Date("2028-02-13")} />
                 </div>
             </div>
         </>

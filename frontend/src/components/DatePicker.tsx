@@ -54,7 +54,8 @@ export default function DatePicker({ defaultDate }: DatePickerProps) {
 				<PopoverContent
 					className="calendar-popover"
 					style={{ backgroundColor: selectColor ?? "#f5f5f5" }}
-					align="start"
+					align="center"
+                    side="right"
 				>
 					<Calendar
 						className="compact-calendar"
