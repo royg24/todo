@@ -1,7 +1,6 @@
-// Utils.tsx (note: must be .tsx since it uses hooks)
-import { useContext } from "react";
-import { ThemeContext } from "@/contexts/ColorContext.ts";
 import * as React from "react";
+import {useContext} from "react";
+import {ThemeContext} from "@/contexts/ColorContext.ts";
 
 export function itemsStyle() {
   const { textColor, selectColor } = useContext(ThemeContext);
@@ -25,3 +24,11 @@ export function inputStyle(
 
 }
 
+export const TaskStatus = {
+  COMPLETED: "completed",
+  PENDING: "pending",
+  IN_PROGRESS: "in-progress",
+  CANCELLED: "cancelled",
+} as const;
+
+export type TaskStatusType = typeof TaskStatus[keyof typeof TaskStatus];

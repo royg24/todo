@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle.tsx";
 import TaskDialog from "@/components/TaskDialog.tsx";
 import DatePicker from "@/components/DatePicker.tsx";
+import StatusSelect from "@/components/StatusSelect.tsx";
 import {
   Select,
   SelectContent,
@@ -14,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import ControlSelectItem from "@/components/ControlSelectItem.tsx";
+import TodoButton from "@/components/TodoButton.tsx";
 
 export default function ControlBar() {
     const { textColor } = useContext(ThemeContext);
@@ -22,7 +24,6 @@ export default function ControlBar() {
     const [isToggleHovered, setIsToggleHovered] = useState(false);
     const [isSearchHovered, setIsSearchHovered] = useState(false);
     const [sortValue, setSortValue] = useState("name");
-    const [statusValue, setStatusValue] = useState("all");
     const [direction, setDirection] = useState(false);
 
     const onToggle = () => setDirection(prev => !prev);
@@ -62,18 +63,7 @@ export default function ControlBar() {
 
             <div className="items-container">
                 <Label htmlFor="status" style={{ color: textColor }}>Status:</Label>
-                <Select value={statusValue} onValueChange={setStatusValue}>
-                <SelectTrigger className="control-bar-select" style={itemsStyle()}>
-                    <SelectValue />
-                </SelectTrigger>
-                <SelectContent style={itemsStyle()}>
-                    <ControlSelectItem value="all">All</ControlSelectItem>
-                    <ControlSelectItem value="completed">Completed</ControlSelectItem>
-                    <ControlSelectItem value="pending">Pending</ControlSelectItem>
-                    <ControlSelectItem value="in-progress">In Progress</ControlSelectItem>
-                    <ControlSelectItem value="cancelled">Cancelled</ControlSelectItem>
-                </SelectContent>
-                </Select>
+                <StatusSelect />
             </div>
 
             <div className="items-container">
@@ -94,10 +84,9 @@ export default function ControlBar() {
         </div>
 
         <div>
-            <TaskDialog
-                buttonText="Add Task"
-                header="Create New Task"
-            />
+            <TaskDialog header="Create New Task">
+                <TodoButton buttonText="Add Task"/>
+            </TaskDialog>
         </div>
         </div>
     )

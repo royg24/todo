@@ -10,31 +10,40 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import TodoButton from "@/components/TodoButton.tsx";
-import { useContext } from "react";
+import {useContext} from "react";
 import { ThemeContext } from "@/contexts/ColorContext.ts";
 import DatePicker from "@/components/DatePicker.tsx";
+import StatusSelect from "@/components/StatusSelect.tsx";
+import * as React from "react";
+import type {TaskStatusType} from "@/components/Utils.ts";
 
 interface TaskDialogProps {
 	header: string;
-	buttonText: string;
+    children: React.ReactNode;
+    isEdit?: boolean;
+    name?: string;
+    description?: string;
+    dueDate?: Date;
+    status?: TaskStatusType
 }
 
-export default function TaskDialog({ header, buttonText }: TaskDialogProps) {
+export default function TaskDialog(props: TaskDialogProps) {
 	const { bgColor, textColor } = useContext(ThemeContext);
 
 	return (
 		<Dialog>
 			<form>
 				<DialogTrigger asChild>
-					<TodoButton buttonText={buttonText} />
+                    {props.children}
 				</DialogTrigger>
 				<DialogContent
 					className="sm:max-w-[425px]"
 					style={{ backgroundColor: bgColor, color: textColor }}
                     showCloseButton={false}
+                    onOpenAutoFocus={(e) => e.preventDefault()}
 				>
 					<DialogHeader>
-						<DialogTitle>{header}</DialogTitle>
+						<DialogTitle>{props.header}</DialogTitle>
 					</DialogHeader>
 
 					<div className="grid gap-4">
@@ -43,6 +52,7 @@ export default function TaskDialog({ header, buttonText }: TaskDialogProps) {
 							<Input
 								id="name-1"
 								name="name"
+                                value={props.name ?? ""}
 								placeholder="Name"
 								style={{ borderColor: "black" }}
 							/>
@@ -53,6 +63,7 @@ export default function TaskDialog({ header, buttonText }: TaskDialogProps) {
 							<textarea
 								id="description"
 								name="description"
+                                value={props.description ?? ""}
 								placeholder="Description"
 								className="h-24 w-full p-2 border border-black rounded resize-none"
 								style={{ borderColor: "black" }}
@@ -61,8 +72,13 @@ export default function TaskDialog({ header, buttonText }: TaskDialogProps) {
 
                         <div className="grid gap-2">
                             <Label htmlFor="due-date">Due Date</Label>
-                            <DatePicker />
+                            <DatePicker defaultDate={props.dueDate}/>
                         </div>
+
+                        { props.isEdit ? <div className="grid gap-2">
+                            <Label htmlFor="status">Status</Label>
+                            <StatusSelect isAllIncluded={false} value={props.status ?? undefined}/>
+                        </div> : null }
 					</div>
 
 					<DialogFooter>

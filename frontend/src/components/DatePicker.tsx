@@ -10,10 +10,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ThemeContext } from "@/contexts/ColorContext.ts"
 import "@/style/DatePicker.css"
 
-export default function DatePicker() {
+interface DatePickerProps {
+    defaultDate?: Date
+}
+
+export default function DatePicker({ defaultDate }: DatePickerProps) {
 	const { textColor, selectColor, buttonColor, hoverButtonColor } = useContext(ThemeContext)
     const { darkMode } = useContext(ThemeContext);
-    const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(undefined);
+    const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(defaultDate);
 
 	const [open, setOpen] = React.useState(false);
 
