@@ -8,7 +8,7 @@ from main import app
 client = TestClient(app)
 
 
-@pytest.mark.order(5)
+@pytest.mark.order(4)
 def test_update_task():
     login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
     token = login_response.json()["token"]

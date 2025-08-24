@@ -6,7 +6,7 @@ from main import app
 client = TestClient(app)
 
 
-@pytest.mark.order(8)
+@pytest.mark.order(7)
 def test_delete_task():
     login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
     token1 = login_response.json()["token"]

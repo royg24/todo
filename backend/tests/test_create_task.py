@@ -9,7 +9,7 @@ from models.task_status import TaskStatus
 client = TestClient(app)
 
 
-@pytest.mark.order(3)
+@pytest.mark.order(2)
 def test_create_task():
 
     login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})

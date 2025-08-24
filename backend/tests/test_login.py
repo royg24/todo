@@ -7,7 +7,7 @@ from main import app
 client = TestClient(app)
 
 
-@pytest.mark.order(2)
+@pytest.mark.order(1)
 def test_login():
     response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
     assert response.status_code == status.HTTP_200_OK, f"code: {response.status_code}\n{response.json()['detail']}"
