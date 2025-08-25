@@ -1,5 +1,6 @@
-import { type ReactNode, useState } from "react";
+import {type ReactNode, useContext, useState} from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {ThemeContext} from "@/contexts/ColorContext.ts";
 
 interface DescriptionPopupProps {
   text: string;
@@ -8,6 +9,7 @@ interface DescriptionPopupProps {
 
 export default function DescriptionPopup({ text, trigger }: DescriptionPopupProps) {
   const [open, setOpen] = useState(false);
+  const {textColor, bgColor, borderColor } = useContext(ThemeContext)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -15,6 +17,7 @@ export default function DescriptionPopup({ text, trigger }: DescriptionPopupProp
           style={{
               backgroundColor: "transparent",
               border: 'none',
+              outline: 'none'
           }}
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
@@ -26,6 +29,11 @@ export default function DescriptionPopup({ text, trigger }: DescriptionPopupProp
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
           className="w-64"
+          style={{
+              backgroundColor: bgColor,
+              color: textColor,
+              borderColor: borderColor,
+          }}
       >
         {text}
       </PopoverContent>

@@ -11,6 +11,9 @@ export interface ThemeContextType {
     bgColor: string;
     setBgColor: Dispatch<SetStateAction<string>>;
 
+    borderColor: string;
+    setBorderColor: Dispatch<SetStateAction<string>>;
+
     selectColor: string;
     setSelectColor: Dispatch<SetStateAction<string>>;
 
@@ -34,6 +37,9 @@ export const ThemeContext = createContext<ThemeContextType>({
 
     bgColor: "white",
     setBgColor: () => {},
+
+    borderColor: "black",
+    setBorderColor: () => {},
 
     selectColor: "#f5f5f5",
     setSelectColor: () => {},

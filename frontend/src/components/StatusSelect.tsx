@@ -15,7 +15,7 @@ export default function StatusSelect({isAllIncluded = true, value = TaskStatus.P
         if (value) {
             setStatusValue(value.value)
         }
-    })
+    }, [value])
 
     return (
         <Select value={statusValue} onValueChange={setStatusValue}>

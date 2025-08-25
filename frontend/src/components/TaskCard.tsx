@@ -76,7 +76,7 @@ export default function TaskCard(details: TaskCardProps) {
                     {details.dueDate.toLocaleDateString("en-GB")}
                 </div>
                 <div className={`${sectionStyle} gap-2`}>
-                    <Button variant="ghost" size="icon" className="icon-style">
+                    <Button variant="ghost" size="icon" className="icon-style" style={{outline: 'none'}}>
                         <Trash2 className="h-5 w-5 text-red-500 hover:text-red-800" />
                     </Button>
                     <TaskDialog
@@ -86,7 +86,7 @@ export default function TaskCard(details: TaskCardProps) {
                         description={details.description}
                         dueDate={details.dueDate}
                         status={details.status}>
-                        <Button variant="ghost" size="icon" style={{color: buttonColor}} className="icon-style">
+                        <Button variant="ghost" size="icon" style={{color: buttonColor, outline: 'none'}} className="icon-style">
                             <Pencil className={`h-5 w-5 hover:text-blue-800`} />
                         </Button>
                     </TaskDialog>

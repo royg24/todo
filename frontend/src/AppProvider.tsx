@@ -5,6 +5,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       const [darkMode, setDarkMode] = useState(false);
       const [textColor, setTextColor] = useState("black");
       const [bgColor, setBgColor] = useState("white");
+      const [borderColor, setBorderColor] = useState("black");
       const [selectColor, setSelectColor] = useState("#f5f5f5");
       const [hoverSelectColor, setHoverSelectColor] = useState("#e5e5e5");
       const [buttonColor, setButtonColor] = useState("#3b82f6");
@@ -15,7 +16,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
         setDarkMode(newMode);
         setTextColor(newMode ? "white" : "black");
         setBgColor(newMode ? "#282c34" : "#d9d2d2");
-        setSelectColor(newMode ? "#4b5563" : "#ddd9d9");
+        setBorderColor(newMode ? "#d9d2d2" : "#282c34");
+        setSelectColor(newMode ? "#4b5563" : "#f5f5f5");
         setHoverSelectColor(newMode ? "#6b7280" : "#e5e5e5");
         setButtonColor(newMode ? "#0c52eb" : "#282c34");
         setHoverButtonColor(newMode ? "#679ef8" :"#4c5057");
@@ -31,6 +33,8 @@ export default function AppProvider({ children }: { children: ReactNode }) {
           setTextColor,
           bgColor,
           setBgColor,
+          borderColor,
+          setBorderColor,
           selectColor,
           setSelectColor,
           hoverSelectColor,

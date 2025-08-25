@@ -16,7 +16,6 @@ export default function TaskBoard() {
             <div className={"task-board-container"} style={{backgroundColor: bgColor}}>
                 <h1 className="task-board-header" style={{color: textColor}}>Welcome {username}</h1>
                 <ControlBar />
-
                 <div style={{width:"60%"}}>
                     <TaskCard
                         name="Buy Groceries"

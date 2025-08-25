@@ -19,7 +19,8 @@ const TodoButton = forwardRef<HTMLButtonElement, ButtonProps & React.ButtonHTMLA
         style={{
             backgroundColor: isButtonHovered ? hoverButtonColor : buttonColor,
             borderColor: "transparent",
-            color: "white"
+            color: "white",
+            outline: 'none',
         }}
         onMouseEnter={() => setIsButtonHovered(true)}
         onMouseLeave={() => setIsButtonHovered(false)}
