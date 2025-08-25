@@ -1,7 +1,8 @@
-import type { FC } from "react";
-import * as SwitchPrimitive from "@radix-ui/react-switch";
+import {type FC, useContext} from "react";
+import { Toggle } from "@/components/ui/toggle"
 import { FaSun, FaMoon } from "react-icons/fa";
 import "../style/DarkModeToggleStyle.css";
+import {ThemeContext} from "@/contexts/ColorContext.ts";
 
 interface DarkModeToggleProps {
 	darkMode: boolean;
@@ -9,20 +10,21 @@ interface DarkModeToggleProps {
 }
 
 const DarkModeToggle: FC<DarkModeToggleProps> = ({ darkMode, onToggle }) => {
+    const { textColor } = useContext(ThemeContext)
+
 	return (
-		<SwitchPrimitive.Root
+		<Toggle
 			className="dark-mode-toggle"
-			checked={darkMode}
-			onCheckedChange={onToggle}
+			pressed={darkMode}
+			onPressedChange={onToggle}
+            style={{backgroundColor: textColor, borderColor: textColor, outline: 'none'}}
 		>
-			<SwitchPrimitive.Thumb className="toggle-circle">
-				{darkMode ? (
-					<FaMoon className="h-4 w-4 text-black-200" />
-				) : (
-					<FaSun className="h-4 w-4 text-white" />
-				)}
-			</SwitchPrimitive.Thumb>
-		</SwitchPrimitive.Root>
+            {darkMode ? (
+                    <FaSun className="h-4 w-4 text-black-200"/>
+                ) : (
+                    <FaMoon className="h-4 w-4 text-white"/>
+            )}
+		</Toggle>
 	);
 };
 

@@ -2,16 +2,15 @@
 
 /* Switch container */
 .dark-mode-toggle {
-	width: 3.75rem;
-	height: 1.875rem;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 9999px;
-	background-color: #ccc;
 	cursor: pointer;
 	display: flex;
 	align-items: center;
+    justify-content: center;
 	padding: 0.125rem;
 	transition: background-color 0.3s;
-	margin-bottom: 1rem;
 	position: absolute;
 	top: 2rem;
 	right: 3rem;
