@@ -54,7 +54,7 @@ export default function TaskDialog(props: TaskDialogProps) {
 								name="name"
                                 value={props.name ?? ""}
 								placeholder="Name"
-								style={{ borderColor: "black" }}
+								style={{ borderColor: "black", outline: 'none' }}
 							/>
 						</div>
 
@@ -66,7 +66,7 @@ export default function TaskDialog(props: TaskDialogProps) {
                                 value={props.description ?? ""}
 								placeholder="Description"
 								className="h-24 w-full p-2 border border-black rounded resize-none"
-								style={{ borderColor: "black" }}
+								style={{ borderColor: "black", outline: 'none' }}
 							/>
 						</div>
 

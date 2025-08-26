@@ -18,9 +18,7 @@ import ControlSelectItem from "@/components/ControlSelectItem.tsx";
 import TodoButton from "@/components/TodoButton.tsx";
 
 export default function ControlBar() {
-    const { textColor } = useContext(ThemeContext);
-    const { selectColor } = useContext(ThemeContext);
-    const { hoverSelectColor } = useContext(ThemeContext);
+    const { textColor, selectColor, hoverSelectColor } = useContext(ThemeContext);
     const [isToggleHovered, setIsToggleHovered] = useState(false);
     const [isSearchHovered, setIsSearchHovered] = useState(false);
     const [sortValue, setSortValue] = useState("name");
@@ -67,7 +65,7 @@ export default function ControlBar() {
             </div>
 
             <div className="items-container">
-                <Label htmlFor="sort" style={{color: textColor,}}>Search:</Label>
+                <Label htmlFor="sort" style={{color: textColor}}>Search:</Label>
                 <Input
                     className="control-bar-select"
                     type="text" placeholder="search"
