@@ -41,6 +41,8 @@ export default function DatePicker({ defaultDate }: DatePickerProps) {
 						style={{
 							color: textColor ?? "white",
 							backgroundColor: selectColor ?? "#f5f5f5",
+                            borderColor:"black",
+                            outline: 'none'
 						}}
 					>
 						{selectedDate ?`

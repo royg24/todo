@@ -12,13 +12,10 @@ export function itemsStyle() {
   } as React.CSSProperties;
 }
 
-export function inputStyle(
-  base: React.CSSProperties,
-  isHovered: boolean
-): React.CSSProperties {
+export function inputStyle(base: React.CSSProperties, isHovered: boolean): React.CSSProperties {
   return {
     ...base,
-    borderColor: isHovered ? "#3c6edb" : "transparent",
+    borderColor: isHovered ? "#3c6edb" : "black",
     transition: "border-color 0.3s ease, transform 0.2s ease",
   };
 
