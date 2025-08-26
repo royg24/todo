@@ -2,8 +2,8 @@
 
 /* Switch container */
 .dark-mode-toggle {
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	border-radius: 9999px;
 	cursor: pointer;
 	display: flex;
@@ -13,7 +13,7 @@
 	transition: background-color 0.3s;
 	position: absolute;
 	top: 2rem;
-	right: 3rem;
+	right: 4rem;
 }
 
 /* Change background when checked */

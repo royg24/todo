@@ -1,8 +1,7 @@
-import {type FC, useContext} from "react";
+import {type FC} from "react";
 import { Toggle } from "@/components/ui/toggle"
 import { FaSun, FaMoon } from "react-icons/fa";
 import "../style/DarkModeToggleStyle.css";
-import {ThemeContext} from "@/contexts/ColorContext.ts";
 
 interface DarkModeToggleProps {
 	darkMode: boolean;
@@ -10,19 +9,18 @@ interface DarkModeToggleProps {
 }
 
 const DarkModeToggle: FC<DarkModeToggleProps> = ({ darkMode, onToggle }) => {
-    const { textColor } = useContext(ThemeContext)
 
 	return (
 		<Toggle
 			className="dark-mode-toggle"
 			pressed={darkMode}
 			onPressedChange={onToggle}
-            style={{backgroundColor: textColor, borderColor: textColor, outline: 'none'}}
+            style={{backgroundColor: "transparent", borderColor: "transparent", outline: 'none'}}
 		>
             {darkMode ? (
-                    <FaSun className="h-4 w-4 text-black-200"/>
+                    <FaSun className="!h-6 !w-6 text-white"/>
                 ) : (
-                    <FaMoon className="h-4 w-4 text-white"/>
+                    <FaMoon className="!h-6 !w-6 text-black"/>
             )}
 		</Toggle>
 	);
