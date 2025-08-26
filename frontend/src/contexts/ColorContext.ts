@@ -25,6 +25,9 @@ export interface ThemeContextType {
 
     hoverButtonColor?: string;
     setHoverButtonColor?: Dispatch<SetStateAction<string>>;
+
+    editIconColor?: string;
+    setEditIconColor?: Dispatch<SetStateAction<string>>;
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
@@ -52,5 +55,8 @@ export const ThemeContext = createContext<ThemeContextType>({
 
     hoverButtonColor: "#2563eb",
     setHoverButtonColor: () => {},
+
+    editIconColor: "#3b82f6",
+    setEditIconColor: () => {},
 
 });

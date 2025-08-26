@@ -10,17 +10,19 @@ export default function AppProvider({ children }: { children: ReactNode }) {
       const [hoverSelectColor, setHoverSelectColor] = useState("#e5e5e5");
       const [buttonColor, setButtonColor] = useState("#3b82f6");
       const [hoverButtonColor, setHoverButtonColor] = useState("#2563eb");
+      const [editIconColor, setEditIconColor] = useState("#3b82f6");
 
   const toggleDarkMode = () => {
         const newMode = !darkMode;
         setDarkMode(newMode);
         setTextColor(newMode ? "white" : "black");
-        setBgColor(newMode ? "#282c34" : "#d9d2d2");
+        setBgColor(newMode ? "#282c34" : "white");
         setBorderColor(newMode ? "#d9d2d2" : "#282c34");
         setSelectColor(newMode ? "#4b5563" : "#f5f5f5");
         setHoverSelectColor(newMode ? "#6b7280" : "#e5e5e5");
         setButtonColor(newMode ? "#0c52eb" : "#282c34");
         setHoverButtonColor(newMode ? "#679ef8" :"#4c5057");
+        setEditIconColor(newMode ? "#608bea" : "#282c34");
   };
 
   return (
@@ -42,7 +44,9 @@ export default function AppProvider({ children }: { children: ReactNode }) {
           buttonColor,
           setButtonColor,
           hoverButtonColor,
-          setHoverButtonColor
+          setHoverButtonColor,
+          editIconColor,
+          setEditIconColor,
       }}
     >
         {children}
