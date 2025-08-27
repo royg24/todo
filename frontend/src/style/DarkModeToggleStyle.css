@@ -2,10 +2,15 @@
 .dark-mode-toggle {
 	width: 2.5rem;
 	height: 2.5rem;
+    background-color: transparent;
+    outline: none;
 	border-radius: 9999px;
 	cursor: pointer;
-	transition: background-color 0.3s;
 	position: absolute;
 	top: 4%;
 	right: 2%;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(82, 89, 100, 0.28);
 }
