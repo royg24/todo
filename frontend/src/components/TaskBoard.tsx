@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import "../style/TaskBoardStyle.css";
 import { ThemeContext } from "@/contexts/ColorContext.ts";
 import { TasksContext } from "@/contexts/TasksContext.tsx";
@@ -10,8 +10,13 @@ export default function TaskBoard() {
 	const [username] = useState<string>("Guest");
 	const { textColor, bgColor } = useContext(ThemeContext);
 	const { tasks, addTask } = useContext(TasksContext);
+    const init = useRef(false);
 
 	useEffect(() => {
+        if (init.current) {
+            return;
+        }
+
 		if (tasks.length === 0) {
 			const initialTasks = Array.from({ length: 20 }, (_, i) => {
 				const statusArray = [TaskStatus.PENDING, TaskStatus.COMPLETED, TaskStatus.IN_PROGRESS];
@@ -29,9 +34,12 @@ export default function TaskBoard() {
 				};
 			});
 
-			initialTasks.forEach(task => addTask(task));
+			initialTasks.forEach(task => {
+                addTask(task)
+            });
 		}
-	}, []);
+        init.current = true;
+	}, [tasks, addTask]);
 
 	return (
 		<div className="task-board-container" style={{ backgroundColor: bgColor }}>
@@ -40,7 +48,7 @@ export default function TaskBoard() {
 			</h1>
 			<ControlBar />
 			<div style={{ width: "60%" }}>
-				<TaskList initialTasks={tasks} />
+				<TaskList />
 			</div>
 		</div>
 	);
