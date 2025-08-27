@@ -25,9 +25,9 @@ interface TaskCardProps {
 export default function TaskCard(details: TaskCardProps) {
   const { selectColor, hoverSelectColor, editIconColor } = useContext(ThemeContext);
   const cardFontStyle = {
-    fontSize: "1rem",
+    fontSize: "1em",
     fontWeight: 600,
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+    fontFamily: "'Segue UI', Tahoma, Geneva, Verdana, sans-serif"
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {

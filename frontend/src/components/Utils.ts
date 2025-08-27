@@ -28,5 +28,4 @@ export const TaskStatus = {
   CANCELLED: { value: "cancelled", color: "red" },
 } as const;
 
-
 export type TaskStatusType = typeof TaskStatus[keyof typeof TaskStatus];

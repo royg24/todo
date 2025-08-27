@@ -2,9 +2,9 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useRef, useEffect, forwardRef, useImperativeHandle, useContext } from "react"
-import TaskCard from "@/components/TaskCard"
 import { type TaskStatusType } from "@/components/Utils.ts"
 import { TasksContext } from "@/contexts/TasksContext.tsx"
+import TaskCard from "@/components/TaskCard.tsx";
 
 export interface Task {
   id: string
@@ -33,7 +33,11 @@ const TaskList = forwardRef<TaskListHandle, TaskListProps>(
       if (!props.fetchTasks) return
       const newTasks = await props.fetchTasks(tasks.length)
       if (newTasks.length > 0) {
-        newTasks.forEach(task => addTask(task))
+        newTasks.forEach(task => {
+          if (!tasks.some(t => t.id === task.id)) {
+            addTask(task)
+          }
+        })
       }
     }
 
@@ -67,7 +71,7 @@ const TaskList = forwardRef<TaskListHandle, TaskListProps>(
     }))
 
     return (
-      <ScrollArea className="h-[45rem] w-full">
+      <ScrollArea className="w-full" style={{height: "clamp(55vh, 8vh + 60vw, 72vh)"}}>
         <div className="flex flex-col gap-2" style={{ alignItems: 'center' }}>
           {tasks.map(task => (
             <TaskCard

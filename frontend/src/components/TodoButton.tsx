@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button.tsx";
 import { useContext, useState, forwardRef } from "react";
 import { ThemeContext } from "@/contexts/ColorContext.ts";
+import * as React from "react";
 
 interface ButtonProps {
   buttonText?: string;

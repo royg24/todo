@@ -6,9 +6,9 @@
     justify-content: flex-start;
     width: 100vw;
     height: 100vh;
-    gap: 1rem;
+    gap: 1em;
 }
 
 .task-board-header {
-    font-size: clamp(2rem, 10vw, 5rem);
+    font-size: clamp(2em, 10vw, 5em);
 }
