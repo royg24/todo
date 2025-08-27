@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState, type ReactNode } from "react";
+import {createContext, useState, type ReactNode} from "react";
 import { type TaskStatusType } from "@/components/Utils.ts";
 
 export interface Task {
@@ -8,7 +8,8 @@ export interface Task {
   name: string;
   description: string;
   status: TaskStatusType;
-  dueDate: Date;
+  dueDate: Date | string;
+  createdAt: Date | string;
 }
 
 interface TasksContextType {

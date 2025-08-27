@@ -7,11 +7,12 @@ import { TasksContext } from "@/contexts/TasksContext.tsx"
 import TaskCard from "@/components/TaskCard.tsx";
 
 export interface Task {
-  id: string
-  name: string
-  description: string
-  status: TaskStatusType
-  dueDate: Date
+    id: string;
+    name: string;
+    description: string;
+    status: TaskStatusType;
+    dueDate: Date;
+    createdAt: Date;
 }
 
 export interface TaskListHandle {
@@ -80,6 +81,7 @@ const TaskList = forwardRef<TaskListHandle, TaskListProps>(
               description={task.description}
               status={task.status}
               dueDate={task.dueDate}
+              createdAt={task.createdAt}
             />
           ))}
           {hasMore && <div ref={loaderRef} className="h-1.5" />}

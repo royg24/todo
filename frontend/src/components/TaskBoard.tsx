@@ -31,6 +31,7 @@ export default function TaskBoard() {
 					description: `This is task number ${i + 1}`,
 					status,
 					dueDate,
+                    createdAt: new Date(),
 				};
 			});
 
@@ -46,7 +47,9 @@ export default function TaskBoard() {
 			<h1 className="task-board-header" style={{ color: textColor }}>
 				Welcome {username}
 			</h1>
+
 			<ControlBar />
+
 			<div style={{ width: "60%" }}>
 				<TaskList />
 			</div>
