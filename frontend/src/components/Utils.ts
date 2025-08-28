@@ -9,6 +9,7 @@ export function itemsStyle() {
     color: textColor,
     backgroundColor: selectColor,
     fontSize: "0.8rem",
+    outline: "none",
   } as React.CSSProperties;
 }
 
