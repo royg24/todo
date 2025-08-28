@@ -11,15 +11,24 @@ import StatusSelect from "@/components/StatusSelect.tsx";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ControlSelectItem from "@/components/ControlSelectItem.tsx";
 import TodoButton from "@/components/TodoButton.tsx";
-
+import { TasksContext} from "@/contexts/TasksContext.tsx";
 export default function ControlBar() {
 	const { textColor, selectColor, hoverSelectColor } = useContext(ThemeContext);
+    const { setSort, setSortDirection } = useContext(TasksContext);
 	const [isToggleHovered, setIsToggleHovered] = useState(false);
 	const [isSearchHovered, setIsSearchHovered] = useState(false);
-	const [sortValue, setSortValue] = useState("name");
+	const [sortValue, setSortValue] = useState("createdAt");
 	const [direction, setDirection] = useState(false);
 
-	const onToggle = () => setDirection(prev => !prev);
+	const onToggle = () => {
+        setDirection(prev => !prev);
+        setSortDirection(direction);
+    };
+
+    const sort = (value: string) => {
+        setSortValue(value);
+        setSort(value);
+    }
 
 	return (
 		<div className="control-bar-wrapper">
@@ -35,6 +44,7 @@ export default function ControlBar() {
 							height: "1.5rem",
 							backgroundColor: isToggleHovered ? hoverSelectColor : selectColor,
 							color: textColor,
+                            outline: "none",
 						}}
 						onClick={onToggle}
 						onMouseEnter={() => setIsToggleHovered(true)}
@@ -55,14 +65,14 @@ export default function ControlBar() {
 			<div className="control-bar-grid">
 				<div className="items-container">
 					<Label htmlFor="sort" style={{ color: textColor }}>Sort By:</Label>
-					<Select value={sortValue} onValueChange={setSortValue}>
+					<Select value={sortValue} onValueChange={sort}>
 						<SelectTrigger className="control-bar-select" style={itemsStyle()}>
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent style={itemsStyle()}>
-							<ControlSelectItem value="date">Date</ControlSelectItem>
+							<ControlSelectItem value="dueDate">Due Date</ControlSelectItem>
 							<ControlSelectItem value="name">Name</ControlSelectItem>
-							<ControlSelectItem value="created-at">Created at</ControlSelectItem>
+							<ControlSelectItem value="createdAt">Created at</ControlSelectItem>
 						</SelectContent>
 					</Select>
 				</div>
@@ -85,7 +95,7 @@ export default function ControlBar() {
 				</div>
 
 				<div className="items-container">
-					<Label htmlFor="date" style={{ color: textColor }}>Search By Date:</Label>
+					<Label htmlFor="date" style={{ color: textColor }}>Search By Due Date:</Label>
 					<DatePicker />
 				</div>
 			</div>

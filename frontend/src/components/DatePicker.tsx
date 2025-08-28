@@ -9,6 +9,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { ThemeContext } from "@/contexts/ColorContext.ts"
 import "@/style/DatePicker.css"
+import {TasksContext} from "@/contexts/TasksContext.tsx";
 
 interface DatePickerProps {
     defaultDate?: Date
@@ -18,8 +19,13 @@ export default function DatePicker({ defaultDate }: DatePickerProps) {
 	const { textColor, selectColor, buttonColor, hoverButtonColor } = useContext(ThemeContext)
     const { darkMode } = useContext(ThemeContext);
     const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(defaultDate);
+    const { setDateFilter } = useContext(TasksContext);
 
 	const [open, setOpen] = React.useState(false);
+    const filter = (date: Date | undefined) => {
+        setSelectedDate(date);
+        setDateFilter(date);
+    }
 
     const labelClass = darkMode
       ? "compact-calendar-caption-dark"
@@ -47,8 +53,7 @@ export default function DatePicker({ defaultDate }: DatePickerProps) {
 					>
 						{selectedDate ?`
 						${String(selectedDate.getDate()).padStart(2, "0")}/${String(selectedDate.getMonth() + 1)
-                                .padStart(2, "0")}/${selectedDate.getFullYear()}`
-                            : "Select date"}
+                                .padStart(2, "0")}/${selectedDate.getFullYear()}` : "Select date"}
 						<ChevronDownIcon className="w-4 h-4" />
 					</Button>
 				</PopoverTrigger>
@@ -64,8 +69,8 @@ export default function DatePicker({ defaultDate }: DatePickerProps) {
 						mode="single"
 						selected={selectedDate}
 						onSelect={(d: Date | undefined) => {
-							setSelectedDate(d)
-							setOpen(false)
+							filter(d);
+							setOpen(false);
 						}}
                         modifiersClassNames={{
                             today: todayClass,

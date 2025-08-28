@@ -23,7 +23,7 @@ export default function TaskBoard() {
 				const status = statusArray[i % statusArray.length];
 
 				const dueDate = new Date();
-				dueDate.setDate(dueDate.getDate() + i);
+				dueDate.setDate(dueDate.getDate() - i);
 
 				return {
 					id: crypto.randomUUID(),

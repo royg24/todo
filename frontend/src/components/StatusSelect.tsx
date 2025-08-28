@@ -1,15 +1,22 @@
 import {Select, SelectContent, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
 import {itemsStyle, TaskStatus, type TaskStatusType} from "@/components/Utils.ts";
 import ControlSelectItem from "@/components/ControlSelectItem.tsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
+import {TasksContext} from "@/contexts/TasksContext.tsx";
 
 interface StatusSelectProps {
     isAllIncluded?: boolean;
     value?: TaskStatusType
 }
 
-export default function StatusSelect({isAllIncluded = true, value = TaskStatus.PENDING}: StatusSelectProps) {
+export default function StatusSelect({isAllIncluded = true, value = undefined}: StatusSelectProps) {
     const [statusValue, setStatusValue] = useState(isAllIncluded ? "all" : "pending");
+    const { setStatusFilter } = useContext(TasksContext);
+
+    const filter = (value: string) => {
+        setStatusValue(value)
+        setStatusFilter(value)
+    }
 
     useEffect(() => {
         if (value) {
@@ -18,7 +25,7 @@ export default function StatusSelect({isAllIncluded = true, value = TaskStatus.P
     }, [value])
 
     return (
-        <Select value={statusValue} onValueChange={setStatusValue}>
+        <Select value={statusValue} onValueChange={filter}>
             <SelectTrigger className="control-bar-select" style={itemsStyle()}>
                 <SelectValue/>
             </SelectTrigger>
