@@ -65,8 +65,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-    background-color: #282c34;
-    overflow-x: hidden;
+  background-color: #282c34;
+  overflow: hidden;
 }
 
 h1 {
