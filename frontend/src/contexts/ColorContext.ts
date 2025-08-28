@@ -31,7 +31,7 @@ export interface ThemeContextType {
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
-    darkMode: false,
+    darkMode: true,
     setDarkMode: () => {},
     toggleDarkMode: () => {},
 

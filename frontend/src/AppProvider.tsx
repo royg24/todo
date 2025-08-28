@@ -1,16 +1,16 @@
-import { useState, type ReactNode } from "react";
+import {useState, type ReactNode} from "react";
 import { ThemeContext } from "./contexts/ColorContext.ts";
 
 export default function AppProvider({ children }: { children: ReactNode }) {
-      const [darkMode, setDarkMode] = useState(false);
-      const [textColor, setTextColor] = useState("black");
-      const [bgColor, setBgColor] = useState("white");
-      const [borderColor, setBorderColor] = useState("black");
-      const [selectColor, setSelectColor] = useState("#f5f5f5");
-      const [hoverSelectColor, setHoverSelectColor] = useState("#e5e5e5");
-      const [buttonColor, setButtonColor] = useState("#3b82f6");
-      const [hoverButtonColor, setHoverButtonColor] = useState("#2563eb");
-      const [editIconColor, setEditIconColor] = useState("#3b82f6");
+      const [darkMode, setDarkMode] = useState(true);
+      const [textColor, setTextColor] = useState("white");
+      const [bgColor, setBgColor] = useState("#282c34");
+      const [borderColor, setBorderColor] = useState("#d9d2d2");
+      const [selectColor, setSelectColor] = useState("#4b5563");
+      const [hoverSelectColor, setHoverSelectColor] = useState("#6b7280");
+      const [buttonColor, setButtonColor] = useState("#0c52eb");
+      const [hoverButtonColor, setHoverButtonColor] = useState("#679ef8");
+      const [editIconColor, setEditIconColor] = useState("#608bea");
 
   const toggleDarkMode = () => {
         const newMode = !darkMode;
@@ -26,6 +26,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
   };
 
   return (
+
     <ThemeContext.Provider
       value={{
           darkMode,
