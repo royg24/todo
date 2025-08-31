@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "@/contexts/ColorContext.ts";
-import { itemsStyle, inputStyle } from "@/components/Utils.ts";
+import { itemsStyle, inputStyle } from "@/components/Utils.tsx";
 import "../style/ControlBarStyle.css";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -11,23 +11,28 @@ import StatusSelect from "@/components/StatusSelect.tsx";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 import ControlSelectItem from "@/components/ControlSelectItem.tsx";
 import TodoButton from "@/components/TodoButton.tsx";
-import { TasksContext} from "@/contexts/TasksContext.tsx";
+import { TasksContext} from "@/contexts/TasksContext.ts";
+import * as React from "react";
 export default function ControlBar() {
 	const { textColor, selectColor, hoverSelectColor } = useContext(ThemeContext);
-    const { setSort, setSortDirection } = useContext(TasksContext);
+    const { setSort, setSortDirection, searchText, setSearchText } = useContext(TasksContext);
 	const [isToggleHovered, setIsToggleHovered] = useState(false);
 	const [isSearchHovered, setIsSearchHovered] = useState(false);
 	const [sortValue, setSortValue] = useState("createdAt");
-	const [direction, setDirection] = useState(false);
+	const [direction, setDirection] = useState(true);
 
-	const onToggle = () => {
+	const handleToggle = () => {
         setDirection(prev => !prev);
         setSortDirection(direction);
     };
 
-    const sort = (value: string) => {
+    const handleSort = (value: string) => {
         setSortValue(value);
         setSort(value);
+    }
+
+    const handleSearch = (value: string) => {
+        setSearchText(value);
     }
 
 	return (
@@ -46,7 +51,7 @@ export default function ControlBar() {
 							color: textColor,
                             outline: "none",
 						}}
-						onClick={onToggle}
+						onClick={handleToggle}
 						onMouseEnter={() => setIsToggleHovered(true)}
 						onMouseLeave={() => setIsToggleHovered(false)}
 					>
@@ -65,7 +70,7 @@ export default function ControlBar() {
 			<div className="control-bar-grid">
 				<div className="items-container">
 					<Label htmlFor="sort" style={{ color: textColor }}>Sort By:</Label>
-					<Select value={sortValue} onValueChange={sort}>
+					<Select value={sortValue} onValueChange={handleSort}>
 						<SelectTrigger className="control-bar-select" style={itemsStyle()}>
 							<SelectValue />
 						</SelectTrigger>
@@ -88,6 +93,8 @@ export default function ControlBar() {
 						className="control-bar-select"
 						type="text"
 						placeholder="search"
+                        value={searchText}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
 						style={inputStyle(itemsStyle(), isSearchHovered)}
 						onMouseEnter={() => setIsSearchHovered(true)}
 						onMouseLeave={() => setIsSearchHovered(false)}
