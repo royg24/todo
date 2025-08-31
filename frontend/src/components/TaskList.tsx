@@ -2,8 +2,8 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { useRef, useEffect, forwardRef, useImperativeHandle, useContext } from "react"
-import { type TaskStatusType } from "@/components/Utils.ts"
-import { TasksContext } from "@/contexts/TasksContext.tsx"
+import { type TaskStatusType } from "@/components/Utils.tsx"
+import { TasksContext } from "@/contexts/TasksContext.ts"
 import TaskCard from "@/components/TaskCard.tsx";
 
 export interface Task {
@@ -26,7 +26,7 @@ interface TaskListProps {
 
 const TaskList = forwardRef<TaskListHandle, TaskListProps>(
   (props: TaskListProps, ref) => {
-    const { tasks, addTask, removeTask } = useContext(TasksContext)
+    const { tasks, addTask, removeTask, searchText } = useContext(TasksContext)
     const loaderRef = useRef<HTMLDivElement | null>(null)
     const hasMore = !!props.fetchTasks
 
@@ -82,6 +82,7 @@ const TaskList = forwardRef<TaskListHandle, TaskListProps>(
               status={task.status}
               dueDate={task.dueDate}
               createdAt={task.createdAt}
+              searchText={searchText}
             />
           ))}
           {hasMore && <div ref={loaderRef} className="h-1.5" />}
