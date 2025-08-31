@@ -3,7 +3,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import {ThemeContext} from "@/contexts/ColorContext.ts";
 
 interface DescriptionPopupProps {
-  text: string;
+  text: ReactNode;
   trigger: ReactNode;
 }
 
