@@ -9,7 +9,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { ThemeContext } from "@/contexts/ColorContext.ts"
 import "@/style/DatePicker.css"
-import {TasksContext} from "@/contexts/TasksContext.tsx";
+import {TasksContext} from "@/contexts/TasksContext.ts";
 
 interface DatePickerProps {
     defaultDate?: Date

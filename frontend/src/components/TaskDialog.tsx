@@ -15,7 +15,7 @@ import { ThemeContext } from "@/contexts/ColorContext.ts";
 import DatePicker from "@/components/DatePicker.tsx";
 import StatusSelect from "@/components/StatusSelect.tsx";
 import * as React from "react";
-import type {TaskStatusType} from "@/components/Utils.ts";
+import type {TaskStatusType} from "@/components/Utils.tsx";
 
 interface TaskDialogProps {
 	header: string;

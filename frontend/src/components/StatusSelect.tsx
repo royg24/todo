@@ -1,8 +1,8 @@
 import {Select, SelectContent, SelectTrigger, SelectValue} from "@/components/ui/select.tsx";
-import {itemsStyle, TaskStatus, type TaskStatusType} from "@/components/Utils.ts";
+import {itemsStyle, TaskStatus, type TaskStatusType} from "@/components/Utils.tsx";
 import ControlSelectItem from "@/components/ControlSelectItem.tsx";
 import {useContext, useEffect, useState} from "react";
-import {TasksContext} from "@/contexts/TasksContext.tsx";
+import {TasksContext} from "@/contexts/TasksContext.ts";
 
 interface StatusSelectProps {
     isAllIncluded?: boolean;
