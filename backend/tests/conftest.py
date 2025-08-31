@@ -8,6 +8,7 @@ from database import IS_TESTING, engine, Base
 @pytest.fixture(scope="session", autouse=True)
 def clear_tables_around_tests():
     if not IS_TESTING:
+        yield
         return
 
     with engine.begin() as conn:
