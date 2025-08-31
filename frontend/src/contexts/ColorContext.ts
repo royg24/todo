@@ -20,14 +20,17 @@ export interface ThemeContextType {
     hoverSelectColor: string;
     setHoverSelectColor: Dispatch<SetStateAction<string>>;
 
-    buttonColor?: string;
-    setButtonColor?: Dispatch<SetStateAction<string>>;
+    buttonColor: string;
+    setButtonColor: Dispatch<SetStateAction<string>>;
 
-    hoverButtonColor?: string;
-    setHoverButtonColor?: Dispatch<SetStateAction<string>>;
+    hoverButtonColor: string;
+    setHoverButtonColor: Dispatch<SetStateAction<string>>;
 
-    editIconColor?: string;
-    setEditIconColor?: Dispatch<SetStateAction<string>>;
+    editIconColor: string;
+    setEditIconColor: Dispatch<SetStateAction<string>>;
+
+    markColor: string;
+    setMarkColor: Dispatch<SetStateAction<string>>
 }
 
 export const ThemeContext = createContext<ThemeContextType>({
@@ -58,5 +61,8 @@ export const ThemeContext = createContext<ThemeContextType>({
 
     editIconColor: "#3b82f6",
     setEditIconColor: () => {},
+
+    markColor: "#e4de1b",
+    setMarkColor: () =>{},
 
 });
