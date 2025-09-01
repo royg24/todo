@@ -7,6 +7,7 @@ import { TasksContext } from "@/contexts/TasksContext.ts";
 import ControlBar from "@/components/ControlBar.tsx";
 import TaskList from "@/components/TaskList.tsx";
 import { TaskStatus } from "@/components/Utils.tsx";
+import {AccessForm} from "@/components/AccessForm.tsx";
 
 export default function TaskBoard() {
   const [username] = useState<string>("Guest");
@@ -105,6 +106,7 @@ export default function TaskBoard() {
 
   return (
     <div className="task-board-container" style={{ backgroundColor: bgColor }}>
+        <AccessForm />
       <h1 className="task-board-header" style={{ color: textColor }}>
         Welcome {username}
       </h1>
