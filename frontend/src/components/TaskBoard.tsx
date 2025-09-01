@@ -111,7 +111,7 @@ export default function TaskBoard() {
 
       <ControlBar />
 
-      <div className="sm:w-11/12 md:w-2/4 lg:w-4/5 mx-auto">
+      <div className="sm:w-11/12 md:w-3/5 lg:w-4/5 mx-auto">
         <TaskList />
       </div>
     </div>

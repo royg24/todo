@@ -5,6 +5,7 @@ import { useRef, useEffect, forwardRef, useImperativeHandle, useContext } from "
 import { type TaskStatusType } from "@/components/Utils.tsx"
 import { TasksContext } from "@/contexts/TasksContext.ts"
 import TaskCard from "@/components/TaskCard.tsx";
+import "../style/TaskList.css";
 
 export interface Task {
     id: string;
@@ -72,7 +73,8 @@ const TaskList = forwardRef<TaskListHandle, TaskListProps>(
     }))
 
     return (
-      <ScrollArea className="w-full" style={{height: "clamp(55vh, 8vh + 60vw, 72vh)"}}>
+      <ScrollArea
+  className="w-fullh scroll-area-style">
         <div className="flex flex-col gap-2" style={{ alignItems: 'center' }}>
           {tasks.map(task => (
             <TaskCard
