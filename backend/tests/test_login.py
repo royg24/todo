@@ -51,3 +51,12 @@ def test_login():
     token = response.json()["token"]
     assert token is not None
     assert token is not ""
+
+    response = client.post("/auth/login/",
+                           json={"username": "royg24", "email": "Roy@goldhar.net", "password": "123456789"})
+    assert response.status_code == status.HTTP_200_OK, f"code: {response.status_code}\n{response.json()['detail']}"
+    assert response.json()["message"] == "Login successful"
+
+    token = response.json()["token"]
+    assert token is not None
+    assert token is not ""

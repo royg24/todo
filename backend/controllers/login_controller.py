@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models.user import User
-from utils import create_token, verify_password
+from utils import create_token, verify_password, normalize_email
 from validations.validations import validate_password, validate_username, validate_email
 from exceptions_handler import ValidationException, AuthenticationException, DataException
 from database.database import TodoDatabase
@@ -19,6 +19,7 @@ class LoginController:
             else:
                 raise AuthenticationException("Username is taken or password is incorrect")
 
+        user_details.email = normalize_email(user_details.email)
         email_user = TodoDatabase.get_user_by_email(user_details.email, session)
         if email_user:
             raise DataException("Email is already in use")

@@ -19,7 +19,6 @@ def create_token(user_id: UUID, expires_hours=2):
 
 
 def decode_token(token: str) -> UUID:
-
     try:
         decoded = decode(token, os.getenv("JWT_SECRET_KEY"), algorithms=['HS256'])
         return UUID(decoded["id"])
@@ -40,3 +39,7 @@ def hash_password(password: str) -> str:
 
 def verify_password(password: str, hashed: str) -> bool:
     return bcrypt.checkpw(password.encode('utf-8'), hashed.encode('utf-8'))
+
+
+def normalize_email(email: str) -> str:
+    return email.strip().lower()
