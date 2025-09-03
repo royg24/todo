@@ -12,6 +12,7 @@ from models.task_update import TaskUpdate
 
 from database.user import User as UserSchema
 from database.task import Task as TaskSchema
+from models.user_update import UserUpdate
 from utils import hash_password
 from uuid import uuid4, UUID
 
@@ -42,17 +43,14 @@ class TodoDatabase:
         return {"tasks": [TaskModel.model_validate(task, from_attributes=True).model_dump() for task in tasks]}
 
     @staticmethod
-    def db_update_username(new_username: str, user_to_update: UserSchema, session: Session) -> bool:
-        user = TodoDatabase.get_user_by_username(new_username, session)
-        if user is not None:
-            raise DatabaseException(status.HTTP_409_CONFLICT, f"{new_username} already exists")
+    def db_update_user(user: UserSchema, updated_user: UserUpdate, session: Session) -> UserSchema:
+        for name, value in updated_user.model_dump(exclude_unset=True).items():
+            setattr(user, name, TodoDatabase.__normalize_value(value))
 
-        setattr(user_to_update, "username", new_username)
+        TodoDatabase.__commit_session(session, "Cannot update user due to a conflict with existing data or constraints")
+        session.refresh(user)
 
-        TodoDatabase.__commit_session(session, "Cannot update username due to a conflict with existing data")
-        session.refresh(user_to_update)
-
-        return True
+        return user
 
     @staticmethod
     def db_update_task(task: TaskSchema, updated_task: TaskUpdate, session: Session) -> TaskSchema:
@@ -89,8 +87,20 @@ class TodoDatabase:
         return session.query(UserSchema).filter(UserSchema.username == username).first()
 
     @staticmethod
+    def get_user_by_email(email: str, session: Session) -> UserSchema | None:
+        return session.query(UserSchema).filter(UserSchema.email == email).first()
+
+    @staticmethod
     def get_task_by_id(task_id: UUID, session: Session) -> TaskSchema | None:
         return session.query(TaskSchema).filter(TaskSchema.task_id == task_id).first()
+
+    @staticmethod
+    def user_schema_to_model(user: UserSchema) -> UserModel | None:
+        return UserModel(
+            username=user.username,
+            email=user.email,
+            password=""
+        )
 
     @staticmethod
     def task_schema_to_model(task: TaskSchema) -> TaskModel:
@@ -107,6 +117,7 @@ class TodoDatabase:
         return UserSchema(
             user_id=uuid4(),
             username=user_details.username,
+            email=user_details.email,
             hashed_password=hash_password(user_details.password)
         )
 
@@ -118,7 +129,8 @@ class TodoDatabase:
             name=task_details.name,
             description=task_details.description or None,
             due_date=task_details.due_date,
-            status=str(task_details.status.value)
+            status=str(task_details.status.value),
+            created_at=task_details.created_at,
         )
 
     @staticmethod

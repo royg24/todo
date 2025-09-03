@@ -10,7 +10,8 @@ client = TestClient(app)
 
 @pytest.mark.order(4)
 def test_update_task():
-    login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
+    login_response = client.post("/auth/login/",
+                                 json={"username": "royg24", "email": "roy@goldhar.net", "password": "123456789"})
     token = login_response.json()["token"]
 
     task = {"name": "Buy groceries", "description": "Buy apples and bananas", "due_date": "2028-08-05T16:00"}

@@ -12,3 +12,4 @@ class Task(BaseModel):
     description: Optional[str]
     due_date: datetime
     status: TaskStatus = TaskStatus.PENDING
+    created_at: Optional[datetime] = None

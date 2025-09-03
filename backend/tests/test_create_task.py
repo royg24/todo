@@ -12,7 +12,8 @@ client = TestClient(app)
 @pytest.mark.order(2)
 def test_create_task():
 
-    login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
+    login_response = client.post("/auth/login/",
+                                 json={"username": "royg24", "email": "roy@goldhar.net", "password": "123456789"})
     token = login_response.json()["token"]
 
     task1 = {"name": "Call mom", "description": "Don't forget to call mom", "due_date": "2028-08-05T16:00"}

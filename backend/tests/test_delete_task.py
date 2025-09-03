@@ -9,7 +9,8 @@ client = TestClient(app)
 @pytest.mark.order(5)
 def test_delete_task():
 
-    login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
+    login_response = client.post("/auth/login/",
+                                 json={"username": "royg24", "email": "roy@goldhar.net", "password": "123456789"})
     token = login_response.json()["token"]
 
     task1 = {"name": "Wash car", "description": "Make the car shining, no single dirt", "due_date": "2027-09-04T16:00"}

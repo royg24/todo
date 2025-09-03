@@ -2,8 +2,8 @@ from sqlalchemy.orm import Session
 
 from models.user import User
 from utils import create_token, verify_password
-from validations.validations import validate_password, validate_username
-from exceptions_handler import ValidationException, AuthenticationException
+from validations.validations import validate_password, validate_username, validate_email
+from exceptions_handler import ValidationException, AuthenticationException, DataException
 from database.database import TodoDatabase
 
 
@@ -19,13 +19,18 @@ class LoginController:
             else:
                 raise AuthenticationException("Username is taken or password is incorrect")
 
-        new_user = User(username=user_details.username, password=user_details.password)
+        email_user = TodoDatabase.get_user_by_email(user_details.email, session)
+        if email_user:
+            raise DataException("Email is already in use")
+
+        new_user = User(username=user_details.username, email=user_details.email, password=user_details.password)
         return TodoDatabase.add_user(new_user, session)
 
     @staticmethod
     def __validate(user_details: User):
         try:
             validate_username(user_details.username)
+            validate_email(user_details.email)
             validate_password(user_details.password)
         except ValidationException as e:
             raise e

@@ -8,10 +8,11 @@ client = TestClient(app)
 
 @pytest.mark.order(7)
 def test_delete_task():
-    login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
+    login_response = client.post("/auth/login/",
+                                 json={"username": "royg24", "email": "roy@goldhar.com", "password": "123456789"})
     token1 = login_response.json()["token"]
 
-    login_response = client.post("/auth/login/", json={"username": "royg89", "password": "123456789"})
+    login_response = client.post("/auth/login/", json={"username": "royg89", "email": "roy@goldhar.net", "password": "123456789"})
     token2 = login_response.json()["token"]
 
     response = client.delete("/users", headers={"Authorization": f"Bearer {token1}"})

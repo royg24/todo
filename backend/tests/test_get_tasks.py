@@ -10,7 +10,8 @@ client = TestClient(app)
 
 @pytest.mark.order(3)
 def test_get():
-    login_response = client.post("/auth/login/", json={"username": "royg24", "password": "123456789"})
+    login_response = client.post("/auth/login/",
+                                 json={"username": "royg24", "email": "roy@goldhar.net", "password": "123456789"})
     token = login_response.json()["token"]
 
     response = client.get("/tasks", headers={"Authorization": f"Bearer {token}"})
@@ -25,6 +26,9 @@ def test_get():
 
     assert tasks[0]["status"] == TaskStatus.PENDING.value
     assert tasks[1]["status"] == TaskStatus.PENDING.value
+
+    assert tasks[0]["created_at"] is not None
+    assert tasks[1]["created_at"] is not None
 
     task1 = {"name": "Go to the mall", "description": "Buy clothes and shoes", "due_date": "2027-01-01T12:00"}
     task2 = {"name": "Clean the house", "description": "Clean the house", "due_date": "2027-04-11T14:00"}

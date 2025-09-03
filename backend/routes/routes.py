@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status, Depends
 
 from controllers.delete_user_controller import DeleteUserController
-from controllers.update_username_controller import UpdateUsernameController
+from controllers.update_user_controller import UpdateUserController
 from database import get_session
 from database.database import TodoDatabase
 
@@ -16,6 +16,8 @@ from models.task import Task
 from models.task_update import TaskUpdate
 
 from uuid import UUID
+
+from models.user_update import UserUpdate
 from utils import get_token
 
 router = APIRouter()
@@ -38,9 +40,11 @@ async def get_tasks(token: str = Depends(get_token), session=Depends(get_session
     return GetTasksController.get_tasks(token, session)
 
 
-@router.patch("/users/username", status_code=status.HTTP_204_NO_CONTENT)
-async def username_update(new_username: str, token=Depends(get_token), session=Depends(get_session)):
-    UpdateUsernameController.update_username(new_username, token, session)
+@router.patch("/users", response_model=dict)
+async def user_update(new_user: UserUpdate, token=Depends(get_token), session=Depends(get_session)):
+    updated_user = UpdateUserController.update_user(new_user, token, session)
+    updated_user = TodoDatabase.user_schema_to_model(updated_user)
+    return {**updated_user.model_dump(), "message": "User updated successfully"}
 
 
 @router.patch("/tasks/{task_id}", response_model=dict)

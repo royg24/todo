@@ -1,4 +1,6 @@
 from datetime import datetime
+from re import match
+
 from exceptions_handler import ValidationException
 
 
@@ -9,11 +11,19 @@ def validate_username(username: str) -> str:
     return username
 
 
-def validate_password(DB_PASSWORD: str) -> str:
-    if not _validate_length(DB_PASSWORD, 5, 30):
+def validate_email(email: str) -> str:
+    regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    if not match(regex, email):
+        raise ValidationException("Email must be a valid email address")
+
+    return email
+
+
+def validate_password(password: str) -> str:
+    if not _validate_length(password, 5, 30):
         raise ValidationException("Password must be 5-30 characters long")
 
-    return DB_PASSWORD
+    return password
 
 
 def validate_task_name(task_name: str) -> str:
