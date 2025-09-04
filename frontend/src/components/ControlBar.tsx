@@ -5,6 +5,7 @@ import "../style/ControlBarStyle.css";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Toggle } from "@/components/ui/toggle.tsx";
+import { Button } from "@/components/ui/button";
 import TaskDialog from "@/components/TaskDialog.tsx";
 import DatePicker from "@/components/DatePicker.tsx";
 import StatusSelect from "@/components/StatusSelect.tsx";
@@ -13,6 +14,8 @@ import ControlSelectItem from "@/components/ControlSelectItem.tsx";
 import TodoButton from "@/components/TodoButton.tsx";
 import { TasksContext} from "@/contexts/TasksContext.ts";
 import * as React from "react";
+import { X } from "lucide-react";
+
 export default function ControlBar() {
 	const { textColor, selectColor, hoverSelectColor } = useContext(ThemeContext);
     const { setSort, setSortDirection, searchText, setSearchText } = useContext(TasksContext);
@@ -89,16 +92,24 @@ export default function ControlBar() {
 
 				<div className="items-container">
 					<Label htmlFor="search" style={{ color: textColor }}>Search:</Label>
-					<Input
-						className="control-bar-select"
-						type="text"
-						placeholder="search"
-                        value={searchText}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
-						style={inputStyle(itemsStyle(), isSearchHovered)}
-						onMouseEnter={() => setIsSearchHovered(true)}
-						onMouseLeave={() => setIsSearchHovered(false)}
-					/>
+					<div style={{display: "flex", flexDirection: "row", position: "relative"}}>
+						<Input
+							className="control-bar-select"
+							type="text"
+							placeholder="search"
+							value={searchText}
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+							style={inputStyle(itemsStyle(), isSearchHovered)}
+							onMouseEnter={() => setIsSearchHovered(true)}
+							onMouseLeave={() => setIsSearchHovered(false)}
+						/>
+						<Button variant="ghost" size="icon"
+								className="absolute right-1/6 !bg-transparent hover:!bg-gray-500 !border-none !outline-none"
+								onClick={() => setSearchText("")}
+						>
+							<X style={{color: textColor}} />
+						</Button>
+					</div>
 				</div>
 
 				<div className="items-container">
