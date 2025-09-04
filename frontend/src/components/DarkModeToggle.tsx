@@ -15,7 +15,7 @@ const DarkModeToggle: FC<DarkModeToggleProps> = ({ darkMode, onToggle }) => {
 			className="dark-mode-toggle"
 			pressed={darkMode}
 			onPressedChange={onToggle}
-            style={{borderColor: "transparent", outline: 'none'}}
+            style={{borderColor: "transparent", outline: 'none', boxShadow: 'none'}}
 		>
             {darkMode ? (
                     <FaSun className="!h-6 !w-6 text-white"/>
