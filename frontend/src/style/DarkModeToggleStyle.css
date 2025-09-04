@@ -6,11 +6,14 @@
     outline: none;
 	border-radius: 9999px;
 	cursor: pointer;
-	position: absolute;
-	top: 4%;
-	right: 2%;
 }
 
 .dark-mode-toggle:hover {
     background-color: rgba(82, 89, 100, 0.28);
+}
+
+.dark-mode-absolute {
+	position: absolute;
+	top: 4%;
+	right: 2%;
 }

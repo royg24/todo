@@ -1,15 +1,13 @@
-import { useContext } from "react";
+
 import TaskBoard from "./components/TaskBoard.tsx";
-import DarkModeToggle from "@/components/DarkModeToggle.tsx";
-import { ThemeContext } from "@/contexts/ColorContext";
+import "./style/App.css";
+import Menu from "@/components/Menu.tsx";
 
 function App() {
-  const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-
   return (
     <>
-      <DarkModeToggle darkMode={darkMode} onToggle={toggleDarkMode} />
-      <TaskBoard />
+        <Menu />
+        <TaskBoard />
     </>
   );
 }

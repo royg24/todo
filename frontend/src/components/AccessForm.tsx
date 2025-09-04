@@ -7,14 +7,15 @@ import { Label } from "@/components/ui/label";
 import TodoButton from "@/components/TodoButton.tsx";
 import {ThemeContext} from "@/contexts/ColorContext.ts";
 import DarkModeToggle from "@/components/DarkModeToggle.tsx";
+import {DetailsContext} from "@/contexts/DetailsContext.ts";
 
 export function AccessForm() {
   const { darkMode, toggleDarkMode } = useContext(ThemeContext);
   const { textColor, bgColor} = useContext(ThemeContext)
 
   const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const { username, setUsername } = useContext(DetailsContext);
+  const { email, setEmail } = useContext(DetailsContext);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [type, setType] = useState("password");
@@ -52,7 +53,7 @@ export function AccessForm() {
             className="sm:max-w-[425px]"
             style={{backgroundColor:bgColor, color: textColor}}
             showCloseButton={false}>
-          <DarkModeToggle darkMode={darkMode} onToggle={toggleDarkMode} />
+          <DarkModeToggle darkMode={darkMode} isMenuItem={true} onToggle={toggleDarkMode} />
           <DialogHeader>
             <DialogTitle>Sign Up / Login</DialogTitle>
             <DialogDescription>

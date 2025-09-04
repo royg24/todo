@@ -1,0 +1,9 @@
+
+.menu-container {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 4%;
+	right: 5%;
+    gap: 2em;
+}

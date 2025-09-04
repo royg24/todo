@@ -5,14 +5,15 @@ import "../style/DarkModeToggleStyle.css";
 
 interface DarkModeToggleProps {
 	darkMode: boolean;
+	isMenuItem?: boolean;
 	onToggle: () => void;
 }
 
-const DarkModeToggle: FC<DarkModeToggleProps> = ({ darkMode, onToggle }) => {
+const DarkModeToggle: FC<DarkModeToggleProps> = ({ darkMode, isMenuItem = false, onToggle }) => {
 
 	return (
 		<Toggle
-			className="dark-mode-toggle"
+			className={`dark-mode-toggle ${isMenuItem ? "dark-mode-absolute" : ""}`}
 			pressed={darkMode}
 			onPressedChange={onToggle}
             style={{borderColor: "transparent", outline: 'none', boxShadow: 'none'}}
